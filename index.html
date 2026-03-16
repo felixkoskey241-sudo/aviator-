@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>AVIATOR PREDICTOR — SkyBet Africa</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#07070e;--bg2:#0e0e18;--bg3:#14141f;--bg4:#1a1a28;--bg5:#1f1f30;
+  --border:#252538;--border2:#353550;
+  --red:#e8321a;--red2:#b82010;--red-glow:rgba(232,50,26,0.45);
+  --orange:#ff6b00;--orange2:#cc5500;
+  --green:#00d468;--green2:#00a050;--green-glow:rgba(0,212,104,0.4);
+  --gold:#ffb300;--gold2:#e65100;--gold-glow:rgba(255,179,0,0.35);
+  --blue:#29b6f6;--purple:#9c27b0;
+  --text:#eeeef8;--text2:#6a6a8a;--text3:#9a9ab8;
+  --panel:#0b0b16;--card:#111120;
+}
+html{height:100%;scroll-behavior:smooth;}
+body{font-family:'Rajdhani',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;}
+input[type=number]{-moz-appearance:textfield;}
+
+/* ══ ANIMATIONS ══ */
+@keyframes ldot{0%,100%{opacity:1}50%{opacity:0.1}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:translateX(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes glow{0%,100%{box-shadow:0 0 16px var(--red-glow)}50%{box-shadow:0 0 36px var(--red-glow),0 0 60px rgba(232,50,26,0.2)}}
+@keyframes goldGlow{0%,100%{box-shadow:0 0 16px var(--gold-glow)}50%{box-shadow:0 0 36px var(--gold-glow)}}
+@keyframes countUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes winFlash{0%,100%{color:var(--gold)}50%{color:#fff;text-shadow:0 0 12px var(--gold)}}
+@keyframes rowSlide{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+@keyframes rankPop{0%{transform:scale(0.6);opacity:0}60%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes checkIn{0%{transform:scale(0) rotate(-45deg);opacity:0}60%{transform:scale(1.3) rotate(5deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
+@keyframes planeFloat{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-12px) rotate(-5deg)}}
+@keyframes starTwinkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes megaPulse{0%,100%{text-shadow:0 0 20px var(--gold-glow),0 0 40px var(--gold-glow)}50%{text-shadow:0 0 40px var(--gold-glow),0 0 80px rgba(255,179,0,0.5),0 0 120px rgba(255,179,0,0.2)}}
+
+/* ══ HEADER ══ */
+.header{
+  position:sticky;top:0;z-index:300;
+  background:rgba(7,7,14,0.97);
+  backdrop-filter:blur(20px);
+  border-bottom:2px solid var(--red);
+  padding:0 16px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 32px rgba(232,50,26,0.2);
+}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--red),var(--orange));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 20px var(--red-glow);animation:glow 3s ease-in-out infinite;}
+.logo-text{font-family:'Exo 2',sans-serif;font-size:22px;font-weight:900;color:#fff;letter-spacing:0.5px;}
+.logo-text span{color:var(--red);}
+.logo-tag{font-size:9px;color:var(--text2);letter-spacing:2.5px;text-transform:uppercase;margin-top:1px;}
+.header-right{display:flex;align-items:center;gap:8px;}
+.live-pill{display:flex;align-items:center;gap:5px;background:rgba(232,50,26,0.1);border:1px solid rgba(232,50,26,0.3);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--red);letter-spacing:1.5px;}
+.ldot{width:6px;height:6px;background:var(--red);border-radius:50%;animation:ldot 1s infinite;}
+.online-pill{background:rgba(41,182,246,0.1);border:1px solid rgba(41,182,246,0.2);border-radius:20px;padding:5px 11px;font-size:11px;font-weight:700;color:var(--blue);}
+
+/* ══ WELCOME PAGE ══ */
+#welcomePage{min-height:100vh;background:var(--bg);}
+
+/* STARS BG */
+.stars-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.star{position:absolute;border-radius:50%;animation:starTwinkle var(--dur,3s) ease-in-out var(--delay,0s) infinite;}
+
+/* HERO */
+.hero-section{
+  position:relative;z-index:1;
+  padding:40px 18px 30px;
+  text-align:center;
+  background:radial-gradient(ellipse at 50% -10%,rgba(232,50,26,0.14) 0%,transparent 65%),
+             radial-gradient(ellipse at 20% 80%,rgba(255,107,0,0.06) 0%,transparent 50%);
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(232,50,26,0.1);border:1px solid rgba(232,50,26,0.28);
+  border-radius:20px;padding:5px 15px;
+  font-size:11px;font-weight:700;color:var(--red);letter-spacing:2px;
+  margin-bottom:18px;animation:pulse 2s ease-in-out infinite;
+}
+.hero-plane{font-size:72px;display:block;margin:0 auto 16px;animation:planeFloat 4s ease-in-out infinite;filter:drop-shadow(0 0 20px rgba(232,50,26,0.5));}
+.hero-title{font-family:'Exo 2',sans-serif;font-size:clamp(32px,8vw,52px);font-weight:900;color:#fff;line-height:1.05;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-title .hl{color:var(--red);display:block;}
+.hero-sub{font-size:14px;color:var(--text3);line-height:1.7;margin-bottom:26px;max-width:400px;margin-left:auto;margin-right:auto;}
+.hero-stats{display:flex;justify-content:center;gap:0;margin-bottom:24px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.hs-item{flex:1;padding:14px 10px;text-align:center;border-right:1px solid var(--border);}
+.hs-item:last-child{border-right:none;}
+.hs-val{font-family:'Exo 2',sans-serif;font-size:clamp(16px,4vw,24px);font-weight:900;color:var(--gold);}
+.hs-lbl{font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+/* ══ LIVE WINS TICKER ══ */
+.ticker-section{position:relative;z-index:1;margin:0 0 20px;overflow:hidden;background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.ticker-label{position:absolute;left:0;top:0;bottom:0;z-index:2;display:flex;align-items:center;gap:6px;padding:0 14px;background:linear-gradient(90deg,var(--red),var(--red2));font-size:10px;font-weight:800;color:#fff;letter-spacing:1.5px;white-space:nowrap;}
+.ticker-track{display:flex;animation:tickerScroll 35s linear infinite;width:max-content;padding:0 0 0 130px;}
+.ticker-item{display:flex;align-items:center;gap:8px;padding:9px 18px;border-right:1px solid var(--border);white-space:nowrap;}
+.ti-em{font-size:18px;}
+.ti-name{font-size:12px;font-weight:700;color:var(--text);}
+.ti-amt{font-family:'Share Tech Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);}
+.ti-mult{font-size:10px;color:var(--green);font-weight:700;}
+
+/* ══ LEADERBOARD ══ */
+.section{position:relative;z-index:1;padding:0 16px;margin-bottom:22px;}
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.section-title{font-family:'Exo 2',sans-serif;font-size:17px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:9px;}
+.live-tag{font-size:10px;font-weight:700;color:var(--green);background:rgba(0,212,104,0.1);border:1px solid rgba(0,212,104,0.25);padding:3px 9px;border-radius:8px;letter-spacing:1px;}
+.section-sub{font-size:12px;color:var(--text2);margin-bottom:12px;}
+
+.lb-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.lb-row{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 14px;border-bottom:1px solid rgba(255,255,255,0.03);
+  transition:background 0.2s;cursor:default;
+  animation:rowSlide 0.4s ease-out both;
+}
+.lb-row:last-child{border-bottom:none;}
+.lb-row:hover{background:rgba(255,255,255,0.025);}
+.lb-rank{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;
+  flex-shrink:0;
+}
+.r1{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#000;box-shadow:0 0 12px rgba(255,215,0,0.4);animation:goldGlow 2s ease-in-out infinite;}
+.r2{background:linear-gradient(135deg,#c0c0c0,#808080);color:#000;}
+.r3{background:linear-gradient(135deg,#cd7f32,#8b4513);color:#fff;}
+.rn{background:var(--bg4);color:var(--text2);border:1px solid var(--border);}
+.lb-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:2px solid transparent;}
+.lb-info{flex:1;min-width:0;}
+.lb-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lb-meta{font-size:10px;color:var(--text2);margin-top:2px;}
+.lb-right{text-align:right;flex-shrink:0;}
+.lb-win{font-family:'Share Tech Mono',monospace;font-size:13px;font-weight:700;color:var(--gold);}
+.lb-mult{font-size:10px;color:var(--green);font-weight:700;margin-top:2px;}
+.lb-new-badge{font-size:9px;background:rgba(232,50,26,0.15);color:var(--red);border:1px solid rgba(232,50,26,0.3);padding:1px 6px;border-radius:6px;margin-left:5px;}
+
+/* ══ PLANS ══ */
+.plans-section{position:relative;z-index:1;padding:0 16px;margin-bottom:20px;}
+.plans-title{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:900;text-align:center;color:var(--text);margin-bottom:5px;}
+.plans-sub{font-size:13px;color:var(--text2);text-align:center;margin-bottom:18px;}
+.plans-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:380px){.plans-grid{grid-template-columns:1fr;}}
+.plan-card{
+  background:var(--card);border:2px solid var(--border);
+  border-radius:16px;padding:18px 14px;
+  cursor:pointer;transition:all 0.25s;
+  position:relative;overflow:hidden;text-align:center;
+}
+.plan-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;opacity:0;transition:opacity 0.25s;}
+.plan-card:hover{transform:translateY(-4px);border-color:var(--border2);box-shadow:0 12px 40px rgba(0,0,0,0.5);}
+.plan-card.popular{border-color:rgba(232,50,26,0.45);}
+.plan-card.popular::after{background:linear-gradient(90deg,var(--red),var(--orange));opacity:1;}
+.plan-card.selected{border-color:var(--gold);}
+.plan-card.selected::after{background:linear-gradient(90deg,var(--gold),var(--orange));opacity:1;}
+.pop-badge{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;letter-spacing:0.5px;}
+.plan-icon{font-size:32px;margin-bottom:8px;}
+.plan-name{font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.plan-price{font-family:'Exo 2',sans-serif;font-size:clamp(20px,5vw,26px);font-weight:900;color:var(--gold);line-height:1.1;animation:winFlash 4s ease-in-out infinite;}
+.plan-period{font-size:10px;color:var(--text2);margin-bottom:12px;}
+.plan-feats{text-align:left;margin-bottom:14px;}
+.plan-feat{font-size:11px;color:var(--text3);display:flex;align-items:flex-start;gap:6px;margin-bottom:4px;line-height:1.4;}
+.pf-icon{color:var(--green);flex-shrink:0;font-size:11px;margin-top:1px;}
+.plan-btn{width:100%;padding:10px;border:1.5px solid var(--border2);border-radius:10px;background:transparent;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;}
+.plan-card.selected .plan-btn{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;border-color:var(--gold);}
+.plan-card.popular .plan-btn{background:rgba(232,50,26,0.1);color:var(--red);border-color:rgba(232,50,26,0.3);}
+.plan-card.popular.selected .plan-btn{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;border-color:var(--red);}
+
+/* ══ SUBSCRIPTION PAYMENT ══ */
+.sub-box{
+  position:relative;z-index:1;
+  margin:0 16px 22px;
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  overflow:hidden;display:none;
+}
+.sub-box.show{display:block;animation:slideUp 0.35s ease-out;}
+.sub-box-hdr{padding:16px 18px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(232,50,26,0.07),transparent);}
+.sbh-title{font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px;}
+.sbh-plan{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:10px 12px;background:rgba(255,179,0,0.06);border:1px solid rgba(255,179,0,0.14);border-radius:10px;}
+.sbp-name{font-size:13px;font-weight:700;color:var(--text);}
+.sbp-price{font-family:'Exo 2',sans-serif;font-size:20px;font-weight:900;color:var(--gold);}
+.sbp-note{font-size:10px;color:var(--text2);margin-top:2px;}
+.sub-box-body{padding:16px 18px 20px;}
+
+/* Country select */
+.c-sel{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin-bottom:12px;cursor:pointer;transition:border-color 0.2s;}
+.c-sel:hover{border-color:var(--border2);}
+.c-sel-flag{font-size:22px;}
+.c-sel-info{flex:1;}
+.c-sel-name{font-size:13px;font-weight:700;}
+.c-sel-sub{font-size:11px;color:var(--text2);}
+.c-sel-arr{color:var(--text2);font-size:12px;transition:transform 0.2s;}
+.c-sel.open .c-sel-arr{transform:rotate(180deg);}
+.c-drop{display:none;background:var(--bg3);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;max-height:260px;overflow-y:auto;}
+.c-drop.open{display:block;animation:slideUp 0.2s ease-out;}
+.c-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background 0.15s;}
+.c-opt:hover{background:rgba(255,255,255,0.04);}
+.c-opt.sel{background:rgba(232,50,26,0.07);border-left:3px solid var(--red);}
+.c-opt-flag{font-size:18px;}
+.c-opt-info{flex:1;}
+.c-opt-name{font-size:13px;font-weight:700;}
+.c-opt-cur{font-size:11px;color:var(--text2);}
+.c-opt-min{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gold);margin-left:auto;}
+
+/* Pay methods */
+.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.pm-card{background:var(--bg3);border:2px solid var(--border);border-radius:10px;padding:11px 8px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.pm-card:hover{border-color:var(--border2);}
+.pm-card.sel{border-color:var(--red);background:rgba(232,50,26,0.06);}
+.pm-icon{font-size:22px;margin-bottom:4px;}
+.pm-name{font-size:12px;font-weight:700;}
+.pm-det{font-size:10px;color:var(--text2);margin-top:1px;}
+
+/* Pay detail */
+.pay-detail{background:rgba(0,212,104,0.04);border:1px solid rgba(0,212,104,0.12);border-radius:10px;padding:13px;margin-bottom:12px;display:none;}
+.pay-detail.show{display:block;animation:slideUp 0.2s ease-out;}
+.pd-head{font-size:12px;font-weight:700;color:var(--green);margin-bottom:9px;display:flex;align-items:center;gap:6px;}
+.pd-row{margin-bottom:8px;}
+.pd-lbl{font-size:10px;color:var(--text2);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.5px;}
+.pd-val{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:10px 12px;font-family:'Share Tech Mono',monospace;font-size:14px;color:var(--text);word-break:break-all;}
+.copy-btn{width:100%;margin-top:8px;padding:9px;background:rgba(41,182,246,0.08);border:1px solid rgba(41,182,246,0.2);border-radius:8px;color:var(--blue);font-size:12px;font-weight:700;cursor:pointer;font-family:'Rajdhani',sans-serif;transition:all 0.2s;}
+.copy-btn:hover{background:rgba(41,182,246,0.15);}
+
+/* Steps */
+.how-box{background:var(--bg3);border-radius:9px;padding:12px;margin-bottom:12px;}
+.how-title{font-size:11px;font-weight:700;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:5px;}
+.how-step{display:flex;align-items:flex-start;gap:8px;margin-bottom:5px;font-size:11px;color:var(--text3);line-height:1.5;}
+.snum{width:17px;height:17px;background:rgba(232,50,26,0.15);border:1px solid rgba(232,50,26,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:var(--red);flex-shrink:0;margin-top:1px;}
+
+/* Reference input */
+.ref-input{width:100%;padding:12px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:9px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;outline:none;transition:border-color 0.2s;margin-bottom:10px;}
+.ref-input:focus{border-color:var(--red);}
+.ref-input::placeholder{color:var(--text2);}
+
+/* Submit */
+.sub-btn{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 24px var(--red-glow);margin-bottom:10px;}
+.sub-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--red-glow);}
+.sub-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+.secure-row{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+.sec-i{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text2);}
+
+/* ══ ADMIN APPROVAL OVERLAY ══ */
+.approval-overlay{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(7,7,14,0.97);
+  backdrop-filter:blur(10px);
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.approval-overlay.show{display:flex;animation:fadeIn 0.4s ease-out;}
+.ao-icon{font-size:64px;margin-bottom:16px;animation:pulse 2s ease-in-out infinite;}
+.ao-spinner{width:56px;height:56px;border:3px solid var(--border2);border-top-color:var(--red);border-radius:50%;animation:spin 0.9s linear infinite;margin:0 auto 20px;}
+.ao-title{font-family:'Exo 2',sans-serif;font-size:22px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.ao-sub{font-size:14px;color:var(--text3);line-height:1.7;max-width:320px;margin-bottom:22px;}
+.ao-ref{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--gold);background:var(--bg3);border:1px solid rgba(255,179,0,0.2);border-radius:8px;padding:10px 16px;margin-bottom:18px;word-break:break-all;}
+.ao-steps{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:20px;text-align:left;width:100%;max-width:380px;}
+.ao-step{display:flex;align-items:flex-start;gap:10px;margin-bottom:9px;font-size:13px;color:var(--text3);line-height:1.5;}
+.ao-step:last-child{margin-bottom:0;}
+.aos-num{width:22px;height:22px;background:rgba(0,212,104,0.1);border:1px solid rgba(0,212,104,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--green);flex-shrink:0;margin-top:1px;}
+.ao-wa-btn{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  width:100%;max-width:320px;padding:14px 18px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff;font-family:'Exo 2',sans-serif;font-size:14px;font-weight:800;
+  cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;margin-bottom:12px;
+  box-shadow:0 4px 20px rgba(37,211,102,0.3);
+}
+.ao-wa-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,0.4);}
+.ao-note{font-size:11px;color:var(--text2);line-height:1.6;}
+.ao-demo-btn{margin-top:14px;padding:10px 24px;background:transparent;border:1px solid var(--border2);border-radius:9px;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.ao-demo-btn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ══ SUCCESS SCREEN ══ */
+.success-screen{
+  position:fixed;inset:0;z-index:950;
+  background:rgba(7,7,14,0.99);
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px;text-align:center;
+}
+.success-screen.show{display:flex;animation:fadeIn 0.5s ease-out;}
+.ss-check{font-size:80px;animation:checkIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both;}
+.ss-title{font-family:'Exo 2',sans-serif;font-size:26px;font-weight:900;color:var(--green);margin:16px 0 8px;text-shadow:0 0 30px var(--green-glow);}
+.ss-sub{font-size:14px;color:var(--text3);line-height:1.7;margin-bottom:24px;}
+.ss-plan{background:var(--card);border:1px solid rgba(0,212,104,0.2);border-radius:12px;padding:14px 18px;margin-bottom:22px;width:100%;max-width:320px;}
+.ss-plan-name{font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;color:var(--green);}
+.ss-plan-exp{font-size:12px;color:var(--text2);margin-top:4px;}
+.ss-login-btn{
+  width:100%;max-width:320px;padding:15px;border:none;border-radius:12px;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  color:#fff;font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 4px 24px var(--green-glow);letter-spacing:0.5px;
+}
+.ss-login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px var(--green-glow);}
+
+/* ══ LOGIN ══ */
+.login-section{position:relative;z-index:1;margin:0 16px 22px;}
+.login-card{background:var(--card);border:1px solid rgba(232,50,26,0.18);border-radius:18px;padding:22px 18px;}
+.login-title{font-family:'Exo 2',sans-serif;font-size:17px;font-weight:800;text-align:center;margin-bottom:5px;}
+.login-sub{font-size:12px;color:var(--text2);text-align:center;margin-bottom:18px;line-height:1.5;}
+.l-inp{width:100%;padding:13px 14px;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:600;outline:none;transition:border-color 0.2s;margin-bottom:10px;}
+.l-inp:focus{border-color:var(--red);}
+.l-inp::placeholder{color:var(--text2);}
+.l-btn{width:100%;padding:14px;border:none;border-radius:11px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-family:'Exo 2',sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all 0.2s;box-shadow:0 3px 18px var(--red-glow);letter-spacing:0.5px;margin-bottom:10px;}
+.l-btn:hover{transform:translateY(-2px);box-shadow:0 6px 26px var(--red-glow);}
+.l-or{text-align:center;font-size:11px;color:var(--text2);margin-bottom:10px;}
+.l-demo-btn{width:100%;padding:12px;background:transparent;border:1.5px solid var(--border2);border-radius:11px;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.l-demo-btn:hover{border-color:var(--gold);color:var(--gold);}
+.l-lock{background:rgba(232,50,26,0.06);border:1px solid rgba(232,50,26,0.18);border-radius:9px;padding:10px 14px;font-size:12px;color:var(--text3);text-align:center;margin-top:10px;display:none;line-height:1.5;}
+
+/* ══ REVIEWS ══ */
+.reviews-section{position:relative;z-index:1;padding:0 16px;margin-bottom:24px;}
+.reviews-grid{display:flex;flex-direction:column;gap:10px;}
+.rev-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:15px;}
+.rev-hdr{display:flex;align-items:flex-start;gap:11px;margin-bottom:10px;}
+.rev-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;background:var(--bg3);border:2px solid var(--border);}
+.rev-name{font-size:14px;font-weight:700;}
+.rev-loc{font-size:10px;color:var(--text2);margin-top:2px;}
+.rev-stars{font-size:13px;margin-top:3px;}
+.rev-plan-badge{font-size:9px;padding:2px 8px;border-radius:8px;background:rgba(232,50,26,0.1);color:var(--red);border:1px solid rgba(232,50,26,0.2);margin-top:3px;display:inline-block;}
+.rev-text{font-size:12px;color:var(--text3);line-height:1.65;font-style:italic;margin-bottom:8px;}
+.rev-win{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:5px;}
+
+/* ══ FOOTER ══ */
+.footer{position:relative;z-index:1;padding:16px;text-align:center;border-top:1px solid var(--border);margin-top:10px;}
+.footer-text{font-size:11px;color:var(--text2);line-height:1.9;}
+.footer-wa{display:inline-flex;align-items:center;gap:5px;background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.2);border-radius:8px;padding:5px 12px;font-size:12px;font-weight:700;color:#25d366;cursor:pointer;transition:all 0.2s;margin-top:8px;text-decoration:none;}
+.footer-wa:hover{background:rgba(37,211,102,0.15);}
+
+/* ══ GAME PAGE ══ */
+#gamePage{display:none;flex-direction:column;height:100vh;overflow:hidden;}
+#gamePage.show{display:flex;}
+
+.hist-strip{background:#0a0a14;border-bottom:1px solid var(--border);padding:5px 12px;display:flex;align-items:center;gap:6px;flex-shrink:0;overflow-x:auto;scrollbar-width:none;}
+.hist-strip::-webkit-scrollbar{display:none;}
+.hs-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px;font-weight:700;flex-shrink:0;}
+.hp{padding:3px 10px;border-radius:20px;font-family:'Share Tech Mono',monospace;font-size:10px;font-weight:700;flex-shrink:0;}
+.hp-low{background:rgba(0,212,104,0.1);color:#00d468;border:1px solid rgba(0,212,104,0.2);}
+.hp-mid{background:rgba(41,182,246,0.1);color:var(--blue);border:1px solid rgba(41,182,246,0.2);}
+.hp-high{background:rgba(255,179,0,0.12);color:var(--gold);border:1px solid rgba(255,179,0,0.25);}
+.hp-moon{background:rgba(255,107,0,0.12);color:var(--orange);border:1px solid rgba(255,107,0,0.3);}
+.hp-mega{background:linear-gradient(90deg,rgba(232,50,26,0.2),rgba(255,107,0,0.2));color:#ff7043;border:1px solid rgba(255,107,0,0.4);}
+
+.game-body{flex:1;display:flex;overflow:hidden;min-height:0;}
+.sidebar{width:190px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+@media(max-width:900px){.sidebar{display:none;}}
+.stabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;}
+.stab{flex:1;padding:10px 4px;background:transparent;border:none;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent;}
+.stab.on{color:var(--red);border-bottom-color:var(--red);}
+.sb-body{flex:1;overflow-y:auto;padding:5px;}
+.p-row{display:flex;align-items:center;gap:7px;padding:6px 7px;border-radius:7px;transition:background 0.15s;margin-bottom:2px;}
+.p-row:hover{background:rgba(255,255,255,0.02);}
+.p-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+.p-info{flex:1;min-width:0;}
+.p-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.p-bet{font-size:11px;color:var(--text2);}
+.p-res{font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;flex-shrink:0;}
+.p-win{color:var(--green);}.p-loss{color:var(--red);}.p-fly{color:var(--gold);animation:ldot 0.8s infinite;}
+
+.game-center{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.canvas-area{flex:1;position:relative;background:radial-gradient(ellipse at 20% 80%,rgba(232,50,26,0.05) 0%,transparent 55%),var(--bg);overflow:hidden;min-height:0;}
+canvas#gc{position:absolute;top:0;left:0;width:100%;height:100%;}
+.game-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.mult-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);text-align:center;pointer-events:none;}
+.mult-val{font-family:'Exo 2',sans-serif;font-size:clamp(44px,9vw,84px);font-weight:900;line-height:1;color:#fff;filter:drop-shadow(0 0 22px currentColor);}
+.mult-val.s-fly{color:var(--red);text-shadow:0 0 40px var(--red-glow);}
+.mult-val.s-mid{color:var(--orange);text-shadow:0 0 40px rgba(255,107,0,0.5);}
+.mult-val.s-high{color:var(--green);text-shadow:0 0 40px var(--green-glow);}
+.mult-val.s-mega{color:var(--gold);text-shadow:0 0 50px rgba(255,179,0,0.7);animation:megaPulse 0.5s ease-in-out infinite alternate;}
+.mult-lbl{font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:5px;color:rgba(255,255,255,0.35);margin-top:5px;text-transform:uppercase;}
+.cd-wrap{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(5,5,12,0.85);backdrop-filter:blur(8px);z-index:10;}
+.cd-wrap.show{display:flex;}
+.cd-ring{width:120px;height:120px;border-radius:50%;border:2px solid var(--red);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 40px var(--red-glow),inset 0 0 40px rgba(232,50,26,0.06);animation:glow 1s ease-in-out infinite;margin-bottom:18px;}
+.cd-num{font-family:'Exo 2',sans-serif;font-size:52px;font-weight:900;color:var(--red);}
+.cd-txt{font-family:'Exo 2',sans-serif;font-size:11px;letter-spacing:3px;color:var(--text2);text-transform:uppercase;}
+.cd-sub{font-size:13px;color:var(--text3);margin-top:10px;font-weight:600;}
+.crash-wrap{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:rgba(232,50,26,0.06);backdrop-filter:blur(4px);z-index:9;}
+.crash-wrap.show{display:flex;}
+.crash-title{font-family:'Exo 2',sans-serif;font-size:clamp(28px,6vw,56px);font-weight:900;color:var(--red);text-shadow:0 0 50px var(--red);}
+.crash-sub{font-family:'Exo 2',sans-serif;font-size:clamp(14px,2.5vw,22px);color:rgba(255,255,255,0.6);margin-top:8px;}
+#plane{position:absolute;pointer-events:none;will-change:transform;display:none;}
+.exhaust{position:absolute;right:calc(100% - 8px);top:50%;transform:translateY(-50%);display:flex;gap:2px;align-items:center;}
+.ex{border-radius:50%;animation:exanim 0.45s linear infinite;}
+.ex:nth-child(1){width:11px;height:11px;background:#fff;}
+.ex:nth-child(2){width:9px;height:9px;background:#ffcc02;animation-delay:.07s;}
+.ex:nth-child(3){width:8px;height:8px;background:#ff8800;animation-delay:.14s;}
+.ex:nth-child(4){width:7px;height:7px;background:#ff3d00;animation-delay:.21s;}
+.ex:nth-child(5){width:5px;height:5px;background:rgba(232,50,26,0.4);animation-delay:.28s;}
+.ex:nth-child(6){width:4px;height:4px;background:rgba(232,50,26,0.1);animation-delay:.35s;}
+@keyframes exanim{0%{opacity:1;transform:scaleX(1)}100%{opacity:0;transform:scaleX(4.5) translateX(-18px)}}
+.explosion{position:absolute;pointer-events:none;transform:translate(-50%,-50%);display:none;}
+.explosion.show{display:block;}
+.exp-r{position:absolute;border-radius:50%;transform:translate(-50%,-50%);animation:expring 0.65s ease-out forwards;}
+@keyframes expring{from{width:0;height:0;opacity:1;border-width:5px;}to{width:160px;height:160px;opacity:0;border-width:1px;}}
+.chip{position:absolute;padding:8px 16px;border-radius:20px;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:800;pointer-events:none;white-space:nowrap;z-index:20;animation:chipup 1.8s ease-out forwards;}
+.chip.win{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 4px 20px var(--green-glow);}
+@keyframes chipup{0%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,-100px)}}
+
+.bet-panel{background:var(--bg2);border-top:1px solid var(--border);padding:10px 12px 12px;flex-shrink:0;}
+.mode-tabs{display:flex;gap:6px;margin-bottom:10px;}
+.mtab{padding:5px 14px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.mtab.on{background:rgba(232,50,26,0.1);border-color:rgba(232,50,26,0.4);color:var(--red);}
+.bets-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+@media(max-width:480px){.bets-row{grid-template-columns:1fr;gap:8px;}}
+.bet-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px;transition:border-color 0.3s;position:relative;overflow:hidden;}
+.bet-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background 0.3s;}
+.bet-card.active-card::before{background:linear-gradient(90deg,var(--green),var(--green2));}
+.bet-card.wait-card::before{background:linear-gradient(90deg,var(--gold),var(--orange));}
+.slot-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.slot-lbl{font-size:11px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;}
+.slot-sts{font-size:10px;font-weight:700;letter-spacing:0.5px;padding:2px 8px;border-radius:10px;}
+.sts-ready{background:rgba(41,182,246,0.1);color:var(--blue);}
+.sts-active{background:rgba(0,212,104,0.1);color:var(--green);}
+.sts-wait{background:rgba(255,179,0,0.1);color:var(--gold);}
+.sts-fly{background:rgba(232,50,26,0.1);color:var(--red);}
+.inp-wrap{display:flex;align-items:center;background:var(--bg);border:1px solid var(--border);border-radius:8px;margin-bottom:7px;overflow:hidden;}
+.iminus,.iplus{width:36px;height:42px;background:var(--bg3);border:none;color:var(--text3);font-size:19px;font-weight:700;cursor:pointer;transition:all 0.15s;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.iminus:hover{background:rgba(232,50,26,0.15);color:var(--red);}
+.iplus:hover{background:rgba(0,212,104,0.15);color:var(--green);}
+.bet-inp{flex:1;height:42px;background:transparent;border:none;color:var(--gold);font-family:'Exo 2',sans-serif;font-size:16px;font-weight:800;text-align:center;outline:none;min-width:0;}
+.qrow{display:flex;gap:4px;margin-bottom:7px;flex-wrap:wrap;}
+.qb{flex:1;min-width:28px;padding:4px 2px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text3);font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:all 0.15s;font-family:'Rajdhani',sans-serif;}
+.qb:hover{border-color:var(--red);color:var(--text);}
+.qb.sp{color:var(--blue);border-color:rgba(41,182,246,0.2);}
+.auto-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;gap:7px;}
+.auto-lgrp{display:flex;align-items:center;gap:6px;}
+.auto-tog{width:32px;height:18px;background:var(--bg3);border:1px solid var(--border);border-radius:9px;position:relative;cursor:pointer;transition:all 0.3s;flex-shrink:0;}
+.auto-tog.on{background:var(--green);border-color:var(--green);}
+.auto-tog::after{content:'';position:absolute;width:12px;height:12px;background:#fff;border-radius:50%;top:2px;left:2px;transition:all 0.3s;}
+.auto-tog.on::after{left:16px;}
+.auto-lbl{font-size:12px;color:var(--text2);font-weight:600;}
+.auto-inp{width:72px;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--gold);font-family:'Share Tech Mono',monospace;font-size:12px;text-align:center;outline:none;transition:border-color 0.2s;}
+.auto-inp:focus{border-color:var(--blue);}
+.auto-inp:disabled{opacity:0.35;}
+.act-btn{width:100%;padding:13px;border:none;border-radius:10px;font-family:'Exo 2',sans-serif;font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.btn-bet{background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;box-shadow:0 3px 16px var(--red-glow);}
+.btn-bet:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px var(--red-glow);}
+.btn-cashout{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 3px 16px var(--green-glow);animation:cpulse 0.9s ease-in-out infinite;}
+@keyframes cpulse{0%,100%{box-shadow:0 3px 16px var(--green-glow)}50%{box-shadow:0 3px 30px var(--green-glow),0 0 0 5px rgba(0,212,104,0.1)}}
+.btn-cashout:hover{transform:translateY(-2px);}
+.btn-cancel{background:transparent;color:var(--text2);border:1px solid var(--border);}
+.btn-cancel:hover{border-color:var(--red);color:var(--red);}
+.btn-wait{background:var(--bg3);color:var(--text2);border:1px solid var(--border);cursor:not-allowed;opacity:0.65;}
+.win-prev{text-align:center;font-size:12px;color:var(--text2);margin-top:6px;}
+.win-prev .wv{color:var(--green);font-family:'Share Tech Mono',monospace;font-weight:700;}
+
+.rsidebar{width:210px;flex-shrink:0;background:var(--panel);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+@media(max-width:1100px){.rsidebar{display:none;}}
+.rstabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;}
+.rstab{flex:1;padding:10px 4px;background:transparent;border:none;color:var(--text2);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;cursor:pointer;transition:all 0.2s;border-bottom:2px solid transparent;}
+.rstab.on{color:var(--green);border-bottom-color:var(--green);}
+.rs-body{flex:1;overflow-y:auto;padding:5px;}
+.rsb-row{display:flex;align-items:center;justify-content:space-between;padding:7px 8px;border-radius:7px;margin-bottom:3px;background:rgba(255,255,255,0.015);border:1px solid rgba(255,255,255,0.025);}
+.rsb-name{font-size:12px;font-weight:700;}
+.rsb-bet{font-size:11px;color:var(--text2);}
+.rsb-result{font-family:'Share Tech Mono',monospace;font-size:11px;font-weight:700;}
+.tw-row{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;margin-bottom:3px;background:rgba(255,179,0,0.03);border:1px solid rgba(255,179,0,0.06);}
+.tw-rank{font-size:10px;color:var(--text2);width:16px;font-family:'Share Tech Mono',monospace;}
+.tw-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.tw-info{flex:1;min-width:0;}
+.tw-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tw-det{font-size:10px;color:var(--text2);}
+.tw-amt{font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:700;color:var(--gold);flex-shrink:0;}
+.mstats{background:var(--bg2);border-top:1px solid var(--border);padding:5px 12px;display:flex;gap:12px;justify-content:space-around;flex-shrink:0;}
+@media(min-width:901px){.mstats{display:none;}}
+.ms-item{text-align:center;}
+.ms-val{font-family:'Share Tech Mono',monospace;font-size:12px;font-weight:700;}
+.ms-lbl{font-size:9px;color:var(--text2);letter-spacing:0.5px;text-transform:uppercase;margin-top:1px;}
+
+/* Deposit modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(8px);z-index:500;display:none;align-items:flex-end;justify-content:center;}
+.modal-bg.show{display:flex;}
+.dep-modal{width:100%;max-width:460px;background:var(--bg2);border-radius:20px 20px 0 0;border-top:1px solid var(--border);border-left:1px solid var(--border);border-right:1px solid var(--border);max-height:92vh;overflow-y:auto;animation:slideUp 0.32s cubic-bezier(0.34,1.56,0.64,1);}
+.m-handle{width:40px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0;}
+.m-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 20px 12px;border-bottom:1px solid var(--border);}
+.m-title{font-family:'Exo 2',sans-serif;font-size:17px;font-weight:800;}
+.m-close{width:32px;height:32px;background:var(--bg3);border:none;border-radius:8px;color:var(--text2);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.m-close:hover{background:rgba(232,50,26,0.1);color:var(--red);}
+.m-body{padding:18px 20px 24px;}
+.bonus-box{background:linear-gradient(135deg,rgba(255,179,0,0.1),rgba(255,107,0,0.07));border:1px solid rgba(255,179,0,0.2);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.bb-icon{font-size:28px;}
+.bb-title{font-size:13px;font-weight:700;color:var(--gold);}
+.bb-sub{font-size:11px;color:var(--text2);margin-top:2px;}
+.amt-inp-row{display:flex;align-items:center;background:var(--bg);border:2px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color 0.2s;margin-bottom:7px;}
+.amt-inp-row:focus-within{border-color:var(--red);}
+.cur-pfx{padding:0 13px;font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;color:var(--gold);background:var(--bg3);border-right:1px solid var(--border);height:48px;display:flex;align-items:center;flex-shrink:0;}
+.dep-inp{flex:1;height:48px;background:transparent;border:none;color:var(--text);font-family:'Exo 2',sans-serif;font-size:18px;font-weight:700;padding:0 13px;outline:none;}
+.conv-row{display:flex;align-items:center;justify-content:space-between;background:rgba(0,212,104,0.05);border:1px solid rgba(0,212,104,0.12);border-radius:8px;padding:9px 13px;margin-bottom:8px;}
+.conv-lbl{font-size:12px;color:var(--text2);}
+.conv-val{font-family:'Share Tech Mono',monospace;font-size:14px;font-weight:700;color:var(--green);}
+.presets{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px;}
+.preset{flex:1;min-width:50px;padding:6px 4px;background:var(--bg3);border:1px solid var(--border);border-radius:7px;color:var(--text2);font-size:11px;font-weight:700;text-align:center;cursor:pointer;transition:all 0.2s;font-family:'Rajdhani',sans-serif;}
+.preset:hover{border-color:var(--red);color:var(--text);}
+.preset.ap{background:rgba(232,50,26,0.1);border-color:var(--red);color:var(--red);}
+.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;}
+.pay-card-d{background:var(--bg3);border:2px solid var(--border);border-radius:10px;padding:11px 9px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.pay-card-d:hover{border-color:var(--border2);}
+.pay-card-d.sel{border-color:var(--red);background:rgba(232,50,26,0.08);}
+.pay-icon{font-size:24px;margin-bottom:4px;}
+.pay-name{font-size:12px;font-weight:700;}
+.pay-det-modal{background:rgba(0,212,104,0.04);border:1px solid rgba(0,212,104,0.12);border-radius:10px;padding:13px;margin-bottom:14px;display:none;}
+.pay-det-modal.show{display:block;}
+.how-box-m{background:var(--bg3);border-radius:8px;padding:11px 13px;margin-bottom:13px;}
+.submit-btn{width:100%;padding:15px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-family:'Exo 2',sans-serif;font-size:14px;font-weight:800;letter-spacing:1px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 22px var(--red-glow);margin-bottom:10px;}
+.submit-btn:hover{transform:translateY(-2px);}
+
+/* TOAST */
+.toast-wrap{position:fixed;top:66px;right:12px;z-index:1000;display:flex;flex-direction:column;gap:5px;pointer-events:none;max-width:270px;}
+.toast{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:13px;font-weight:600;transform:translateX(115%);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 4px 22px rgba(0,0,0,0.55);}
+.toast.show{transform:translateX(0);}
+.toast.t-win{border-color:rgba(0,212,104,0.35);color:var(--green);}
+.toast.t-loss{border-color:rgba(232,50,26,0.35);color:var(--red);}
+.toast.t-info{border-color:rgba(41,182,246,0.35);color:var(--blue);}
+.toast.t-warn{border-color:rgba(255,179,0,0.35);color:var(--gold);}
+</style>
+</head>
+<body>
+
+<!-- STARS BG -->
+<div class="stars-bg" id="starsBg"></div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- APPROVAL OVERLAY -->
+<div class="approval-overlay" id="approvalOverlay">
+  <div class="ao-spinner"></div>
+  <div class="ao-title">Notifying Admin...</div>
+  <div class="ao-sub">Your payment is being verified by our team. This usually takes <strong style="color:var(--gold)">1–5 minutes</strong>. You'll be logged in automatically after approval.</div>
+  <div class="ao-ref" id="aoRef">REF: AV-000000</div>
+  <div class="ao-steps" style="max-width:340px;">
+    <div class="ao-step"><div class="aos-num">1</div><div>Screenshot your payment confirmation</div></div>
+    <div class="ao-step"><div class="aos-num">2</div><div>Send it to our admin on WhatsApp below</div></div>
+    <div class="ao-step"><div class="aos-num">3</div><div>Admin approves & logs you in instantly</div></div>
+    <div class="ao-step"><div class="aos-num">4</div><div>You receive all signals & predictor access</div></div>
+  </div>
+  <button class="ao-wa-btn" id="aoWaBtn" onclick="openAdminWA()">
+    <span style="font-size:22px;">💬</span>
+    <span>Send Proof to Admin on WhatsApp</span>
+  </button>
+  <div class="ao-note">📞 Admin: +254 759 401 893 · Available 24/7<br>🔒 Your payment is 100% safe and tracked</div>
+  <button class="ao-demo-btn" onclick="skipToDemo()">🎮 Play Demo While Waiting</button>
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div class="success-screen" id="successScreen">
+  <div class="ss-check">✅</div>
+  <div class="ss-title">Access Activated! 🎉</div>
+  <div class="ss-sub">Your subscription is confirmed. Welcome to SkyBet Aviator Predictor! Get ready to win big.</div>
+  <div class="ss-plan">
+    <div class="ss-plan-name" id="ssPlanName">Monthly Elite — Active</div>
+    <div class="ss-plan-exp" id="ssPlanExp">Valid for 30 days · Full AI signal access</div>
+  </div>
+  <button class="ss-login-btn" onclick="enterGame()">🚀 Start Playing Now!</button>
+</div>
+
+<!-- ═══════════════════════════════
+     WELCOME PAGE
+═══════════════════════════════ -->
+<div id="welcomePage">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">✈️</div>
+      <div>
+        <div class="logo-text">SKY<span>BET</span></div>
+        <div class="logo-tag">Aviator Africa</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="live-pill"><div class="ldot"></div>LIVE</div>
+      <div class="online-pill">👥 <span id="wpOnline">247</span></div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <div class="hero-badge"><div class="ldot"></div>LIVE PREDICTOR — ACTIVE NOW</div>
+    <div class="hero-plane">✈️</div>
+    <div class="hero-title">AVIATOR<span class="hl">PREDICTOR</span></div>
+    <div class="hero-sub">Africa's #1 crash game predictor. Real-time AI signals, cashout alerts & guaranteed multiplier forecasts. Join <strong style="color:var(--gold)">12,000+ winners</strong> across Africa.</div>
+    <div class="hero-stats">
+      <div class="hs-item">
+        <div class="hs-val" id="statMembers">12,850</div>
+        <div class="hs-lbl">Members</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-val" id="statRounds">284</div>
+        <div class="hs-lbl">Rounds Today</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-val">87%</div>
+        <div class="hs-lbl">Accuracy</div>
+      </div>
+      <div class="hs-item">
+        <div class="hs-val" id="statPaid">KSH 2.4M</div>
+        <div class="hs-lbl">Paid Out</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Wins Ticker -->
+  <div class="ticker-section">
+    <div class="ticker-label"><div class="ldot"></div>🏆 LIVE WINS</div>
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
+  <!-- Leaderboard -->
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-title">🏆 Top Winners<span class="live-tag">LIVE</span></div>
+    </div>
+    <div class="section-sub">Updated every few seconds — real winners from Africa 🌍</div>
+    <div class="lb-card" id="leaderboardEl"></div>
+  </div>
+
+  <!-- Plans -->
+  <div class="plans-section">
+    <div class="plans-title">🚀 Choose Your Plan</div>
+    <div class="plans-sub">Subscribe once, win every day. Admin activates access after payment.</div>
+    <div class="plans-grid" id="plansGrid"></div>
+  </div>
+
+  <!-- Subscription Payment Box -->
+  <div class="sub-box" id="subBox">
+    <div class="sub-box-hdr">
+      <div class="sbh-title">💳 Complete Payment</div>
+      <div class="sbh-plan">
+        <div>
+          <div class="sbp-name" id="sbPlanName">—</div>
+          <div class="sbp-note">Admin activates access after verification</div>
+        </div>
+        <div>
+          <div class="sbp-price" id="sbPlanPrice">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-box-body">
+      <!-- Country selector -->
+      <div class="c-sel" id="scSel" onclick="toggleSubDrop()">
+        <div class="c-sel-flag" id="scFlag">🇰🇪</div>
+        <div class="c-sel-info">
+          <div class="c-sel-name" id="scName">Kenya — KES</div>
+          <div class="c-sel-sub" id="scSub">Pay in Kenyan Shilling</div>
+        </div>
+        <div class="c-sel-arr" id="scArr">▼</div>
+      </div>
+      <div class="c-drop" id="scDrop"></div>
+
+      <!-- Payment methods -->
+      <div style="font-size:11px;color:var(--text2);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Payment Method</div>
+      <div class="pay-methods" id="scPayMethods"></div>
+
+      <!-- Pay detail -->
+      <div class="pay-detail" id="scPayDetail"></div>
+
+      <!-- Transaction ref -->
+      <div style="font-size:11px;color:var(--text2);margin-bottom:5px;font-weight:600;">Transaction Code / Reference (from SMS)</div>
+      <input class="ref-input" type="text" id="txRef" placeholder="e.g. QDK7X2ABCD or Ref#12345678" autocomplete="off">
+
+      <!-- Phone number -->
+      <div style="font-size:11px;color:var(--text2);margin-bottom:5px;font-weight:600;">Your Phone Number</div>
+      <input class="ref-input" type="tel" id="txPhone" placeholder="e.g. +254 712 345 678" autocomplete="off">
+
+      <button class="sub-btn" onclick="submitSub()">✅ I HAVE PAID — NOTIFY ADMIN</button>
+      <div class="secure-row">
+        <div class="sec-i">🔒 Secure</div>
+        <div class="sec-i">⚡ Fast Activation</div>
+        <div class="sec-i">✅ 24/7 Signals</div>
+        <div class="sec-i">💰 Money-Back</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login -->
+  <div class="login-section">
+    <div class="login-card">
+      <div class="login-title">🔐 Already Subscribed?</div>
+      <div class="login-sub" id="loginSubText">Login with your phone number. Admin must approve your subscription first.</div>
+      <input class="l-inp" type="tel" id="lPhone" placeholder="Phone number e.g. +254 712 345 678">
+      <input class="l-inp" type="password" id="lPin" placeholder="PIN / Password">
+      <button class="l-btn" onclick="doLogin()">🚀 LOGIN & PLAY</button>
+      <div class="l-or">— or —</div>
+      <button class="l-demo-btn" onclick="skipToDemo()">🎮 Try Free Demo (No subscription needed)</button>
+      <div class="l-lock" id="lLock">🔒 Please subscribe to a plan above. Admin will verify your payment and grant access within 1–5 minutes.</div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="reviews-section">
+    <div class="section-hdr">
+      <div class="section-title">⭐ Member Reviews</div>
+    </div>
+    <div class="section-sub">Real feedback from verified SkyBet Aviator members across Africa</div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-text">
+      🌍 Serving Kenya 🇰🇪 · Tanzania 🇹🇿 · Uganda 🇺🇬 · Nigeria 🇳🇬 · Ghana 🇬🇭 · Rwanda 🇷🇼 · Ethiopia 🇪🇹 · Zambia 🇿🇲 & more<br>
+      🔒 Licensed & Regulated · 18+ Only · Play Responsibly · Gambling can be addictive
+    </div>
+    <a class="footer-wa" href="https://wa.me/254759401893" target="_blank">
+      💬 WhatsApp Admin: +254 759 401 893
+    </a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     GAME PAGE
+═══════════════════════════════ -->
+<div id="gamePage">
+
+  <div class="header">
+    <div class="logo">
+      <div class="logo-icon">✈️</div>
+      <div>
+        <div class="logo-text">SKY<span>BET</span></div>
+        <div class="logo-tag">Aviator Africa</div>
+      </div>
+    </div>
+    <div style="position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;">
+      <div class="live-pill"><div class="ldot"></div>LIVE</div>
+      <div class="online-pill">👥 <span id="gOnline">247</span></div>
+    </div>
+    <div class="header-right">
+      <div style="background:var(--bg4);border:1px solid var(--border2);border-radius:10px;padding:6px 13px;cursor:pointer;" onclick="openDep()">
+        <div style="font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:0.5px;">Balance</div>
+        <div style="font-family:'Exo 2',sans-serif;font-size:15px;font-weight:800;color:var(--gold);" id="balVal">KSH 5,000</div>
+      </div>
+      <button style="background:linear-gradient(135deg,var(--green),var(--green2));border:none;border-radius:9px;padding:8px 14px;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;color:#fff;cursor:pointer;box-shadow:0 2px 12px rgba(0,212,104,0.3);" onclick="openDep()">+ Deposit</button>
+    </div>
+  </div>
+
+  <div class="hist-strip">
+    <div class="hs-lbl">History:</div>
+    <div id="histRow" style="display:flex;gap:5px;"></div>
+  </div>
+
+  <div class="game-body">
+    <div class="sidebar">
+      <div class="stabs">
+        <button class="stab on" onclick="switchSb('players',this)">Players</button>
+        <button class="stab" onclick="switchSb('mybets',this)">My Bets</button>
+      </div>
+      <div class="sb-body" id="sbBody"></div>
+    </div>
+
+    <div class="game-center">
+      <div class="canvas-area" id="canvasArea">
+        <div class="game-stars" id="gameStars"></div>
+        <canvas id="gc"></canvas>
+
+        <div id="plane">
+          <div style="position:relative;display:inline-flex;align-items:center;">
+            <div class="exhaust">
+              <div class="ex"></div><div class="ex"></div><div class="ex"></div>
+              <div class="ex"></div><div class="ex"></div><div class="ex"></div>
+            </div>
+            <svg width="96" height="60" viewBox="0 0 96 60" style="filter:drop-shadow(0 0 12px rgba(232,50,26,0.8))">
+              <ellipse cx="52" cy="30" rx="38" ry="11" fill="#f0f0f8"/>
+              <path d="M90 30 L68 21 L68 39 Z" fill="#e8321a"/>
+              <path d="M40 29 L65 3 L76 10 L50 29 Z" fill="#d0d8e8"/>
+              <path d="M40 31 L65 57 L76 50 L50 31 Z" fill="#b8c4d4"/>
+              <rect x="14" y="27" width="54" height="6" rx="3" fill="#e8321a" opacity="0.7"/>
+              <path d="M15 30 L5 13 L22 26 Z" fill="#e8321a"/>
+              <path d="M15 30 L5 47 L22 34 Z" fill="#c02510"/>
+              <circle cx="65" cy="26" r="4.5" fill="#29b6f6" opacity="0.85"/>
+              <circle cx="56" cy="26" r="4.5" fill="#29b6f6" opacity="0.78"/>
+              <circle cx="74" cy="27" r="3.5" fill="#29b6f6" opacity="0.7"/>
+              <ellipse cx="46" cy="40" rx="9" ry="3.5" fill="#8090a8"/>
+              <ellipse cx="46" cy="41" rx="5" ry="2" fill="#e8321a" opacity="0.4"/>
+              <rect x="6" y="18" width="8" height="5" rx="0.5" fill="#006600"/>
+              <rect x="10" y="18" width="4" height="5" rx="0.5" fill="#bb0000"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="explosion" id="expEl">
+          <div class="exp-r" style="border:5px solid #e8321a;animation-delay:0s;"></div>
+          <div class="exp-r" style="border:3px solid #ff8800;animation-delay:0.1s;"></div>
+          <div class="exp-r" style="border:2px solid #ffcc00;animation-delay:0.2s;"></div>
+        </div>
+
+        <div class="mult-wrap" id="multWrap">
+          <div class="mult-val s-fly" id="multVal">1.00x</div>
+          <div class="mult-lbl" id="multLbl">Flying</div>
+        </div>
+
+        <div class="crash-wrap" id="crashWrap">
+          <div class="crash-title">FLEW AWAY! 🛫</div>
+          <div class="crash-sub" id="crashAt">Flew away at 2.34x</div>
+        </div>
+
+        <div class="cd-wrap" id="cdWrap">
+          <div class="cd-ring">
+            <div class="cd-num" id="cdNum">5</div>
+          </div>
+          <div class="cd-txt">Next round starting</div>
+          <div class="cd-sub">Place your bets now!</div>
+        </div>
+      </div>
+
+      <div class="bet-panel">
+        <div class="mode-tabs">
+          <button class="mtab on" onclick="setMode('manual',this)">Manual</button>
+          <button class="mtab" onclick="setMode('auto',this)">Auto</button>
+        </div>
+        <div class="bets-row">
+          <div class="bet-card" id="card1">
+            <div class="slot-hdr"><div class="slot-lbl">Bet 1</div><div class="slot-sts sts-ready" id="sts1">Ready</div></div>
+            <div class="inp-wrap">
+              <button class="iminus" onclick="stepAmt(1,-10)">−</button>
+              <input class="bet-inp" type="number" id="amt1" value="50" min="1">
+              <button class="iplus" onclick="stepAmt(1,10)">+</button>
+            </div>
+            <div class="qrow">
+              <button class="qb" onclick="addAmt(1,10)">+10</button>
+              <button class="qb" onclick="addAmt(1,50)">+50</button>
+              <button class="qb" onclick="addAmt(1,100)">+100</button>
+              <button class="qb sp" onclick="halfAmt(1)">½</button>
+              <button class="qb sp" onclick="dblAmt(1)">2×</button>
+              <button class="qb sp" onclick="maxAmt(1)">MAX</button>
+            </div>
+            <div class="auto-row">
+              <div class="auto-lgrp">
+                <div class="auto-tog" id="tog1" onclick="toggleAuto(1)"></div>
+                <div class="auto-lbl">Auto Cash Out</div>
+              </div>
+              <input class="auto-inp" type="number" id="ac1" value="2.00" min="1.01" step="0.01" disabled>
+            </div>
+            <button class="act-btn btn-bet" id="actBtn1" onclick="handleAction(1)">PLACE BET</button>
+            <div class="win-prev" id="prev1">At 2.00×: <span class="wv">KSH 100</span></div>
+          </div>
+          <div class="bet-card" id="card2">
+            <div class="slot-hdr"><div class="slot-lbl">Bet 2</div><div class="slot-sts sts-ready" id="sts2">Ready</div></div>
+            <div class="inp-wrap">
+              <button class="iminus" onclick="stepAmt(2,-10)">−</button>
+              <input class="bet-inp" type="number" id="amt2" value="20" min="1">
+              <button class="iplus" onclick="stepAmt(2,10)">+</button>
+            </div>
+            <div class="qrow">
+              <button class="qb" onclick="addAmt(2,10)">+10</button>
+              <button class="qb" onclick="addAmt(2,50)">+50</button>
+              <button class="qb" onclick="addAmt(2,100)">+100</button>
+              <button class="qb sp" onclick="halfAmt(2)">½</button>
+              <button class="qb sp" onclick="dblAmt(2)">2×</button>
+              <button class="qb sp" onclick="maxAmt(2)">MAX</button>
+            </div>
+            <div class="auto-row">
+              <div class="auto-lgrp">
+                <div class="auto-tog" id="tog2" onclick="toggleAuto(2)"></div>
+                <div class="auto-lbl">Auto Cash Out</div>
+              </div>
+              <input class="auto-inp" type="number" id="ac2" value="5.00" min="1.01" step="0.01" disabled>
+            </div>
+            <button class="act-btn btn-bet" id="actBtn2" onclick="handleAction(2)">PLACE BET</button>
+            <div class="win-prev" id="prev2">At 5.00×: <span class="wv">KSH 100</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mstats">
+        <div class="ms-item"><div class="ms-val" id="mOnline">247</div><div class="ms-lbl">Online</div></div>
+        <div class="ms-item"><div class="ms-val" id="mLast">—</div><div class="ms-lbl">Last</div></div>
+        <div class="ms-item"><div class="ms-val" id="mMax">—</div><div class="ms-lbl">Best</div></div>
+        <div class="ms-item"><div class="ms-val" id="mWon">KSH 0</div><div class="ms-lbl">Won</div></div>
+      </div>
+    </div>
+
+    <div class="rsidebar">
+      <div class="rstabs">
+        <button class="rstab on" onclick="switchRs('all',this)">All Bets</button>
+        <button class="rstab" onclick="switchRs('top',this)">Top Wins</button>
+      </div>
+      <div class="rs-body" id="rsBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Deposit Modal -->
+<div class="modal-bg" id="depModal" onclick="handleMBg(event)">
+  <div class="dep-modal">
+    <div class="m-handle"></div>
+    <div class="m-hdr">
+      <div class="m-title">💰 Deposit Funds</div>
+      <button class="m-close" onclick="closeDep()">✕</button>
+    </div>
+    <div class="m-body">
+      <div class="bonus-box">
+        <div class="bb-icon">🎁</div>
+        <div><div class="bb-title">100% Welcome Bonus!</div><div class="bb-sub">First deposit doubled — play with 2× your money</div></div>
+      </div>
+      <div class="c-sel" id="dCSel" onclick="toggleDepDrop()">
+        <div class="c-sel-flag" id="dCFlag">🇰🇪</div>
+        <div class="c-sel-info"><div class="c-sel-name" id="dCName">Kenya — KES</div><div class="c-sel-sub" id="dCRate">Min: KES 100</div></div>
+        <div class="c-sel-arr" id="dCArr">▼</div>
+      </div>
+      <div class="c-drop" id="dCDrop"></div>
+      <div style="font-size:12px;color:var(--text2);font-weight:700;margin-bottom:7px;text-transform:uppercase;letter-spacing:0.5px;">Deposit Amount</div>
+      <div class="amt-inp-row">
+        <div class="cur-pfx" id="dCurPfx">KES</div>
+        <input class="dep-inp" type="number" id="depAmt" value="500" oninput="updateDepConv()">
+      </div>
+      <div class="conv-row">
+        <div class="conv-lbl">≈ USD Value</div>
+        <div class="conv-val" id="depConvVal">$3.85</div>
+      </div>
+      <div class="presets" id="depPresets"></div>
+      <div style="font-size:12px;color:var(--text2);font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Payment Method</div>
+      <div class="pay-grid" id="depPayGrid"></div>
+      <div class="pay-det-modal" id="depPayDet"></div>
+      <div class="how-box-m" id="depHowBox" style="display:none;">
+        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:7px;">📋 How to Pay</div>
+        <div id="depHowSteps"></div>
+      </div>
+      <button class="submit-btn" onclick="submitDep()">✅ I HAVE SENT THE MONEY</button>
+      <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+        <div class="sec-i">🔒 Secure</div><div class="sec-i">⚡ Instant</div><div class="sec-i">✅ Licensed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════
+//  AFRICA COUNTRIES DATA
+// ════════════════════════════════════════
+const COUNTRIES = [
+  {
+    code:'KE',flag:'🇰🇪',name:'Kenya',cur:'KES',sym:'KES',rate:130,minDep:100,
+    methods:[
+      {id:'mpesa',icon:'📱',name:'M-Pesa',det:'Send Money',number:'+254759401893',acc:'Felix Kiprotich',
+        steps:['Open M-Pesa on your phone','Go to Send Money','Enter: +254759401893','Enter amount & M-Pesa PIN','Copy transaction code from SMS','Paste code above & submit']},
+      {id:'till',icon:'🏪',name:'M-Pesa Till',det:'Buy Goods',number:'7500448',acc:'SkyBet Kenya',
+        steps:['Open M-Pesa → Lipa na M-Pesa','Select Buy Goods & Services','Till Number: 7500448','Enter amount → PIN → Confirm','Copy transaction code from SMS']},
+      {id:'airtel',icon:'🔴',name:'Airtel Money',det:'Send Money',number:'+254100000000',acc:'SkyBet',
+        steps:['Open Airtel Money → Send Money','Enter: +254100000000','Amount → PIN → Confirm','Copy transaction reference']},
+      {id:'equity',icon:'🏦',name:'Equity Bank',det:'Bank Transfer',number:'0310184912409',acc:'Felix Kiprotich Koskei',
+        steps:['Open Equity Bank app or branch','Account: Felix Kiprotich Koskei','Account No: 0310184912409','Deposit amount → get receipt','Enter bank reference above']}
+    ],
+    presets:[100,200,500,1000,2000,5000],
+    subPrices:{daily:100,weekly:500,monthly:1500,pro:3000}
+  },
+  {
+    code:'TZ',flag:'🇹🇿',name:'Tanzania',cur:'TZS',sym:'TSh',rate:2600,minDep:2000,
+    methods:[
+      {id:'vodacom',icon:'📱',name:'M-Pesa TZ',det:'Vodacom',number:'0712000000',acc:'SkyBet Tanzania',
+        steps:['Open Vodacom M-Pesa','Send Money to: 0712000000','Enter TZS amount → Confirm','Copy transaction ID from SMS']},
+      {id:'tigo',icon:'📲',name:'Tigo Pesa',det:'Tigo',number:'0652000000',acc:'SkyBet',
+        steps:['Open Tigo Pesa App','Send to: 0652000000','Enter amount → PIN → Confirm','Save transaction reference']}
+    ],
+    presets:[2000,5000,10000,20000,50000,100000],
+    subPrices:{daily:2000,weekly:10000,monthly:30000,pro:60000}
+  },
+  {
+    code:'UG',flag:'🇺🇬',name:'Uganda',cur:'UGX',sym:'USh',rate:3800,minDep:2000,
+    methods:[
+      {id:'mtn-ug',icon:'📱',name:'MTN MoMo',det:'Send Money',number:'0778000000',acc:'SkyBet Uganda',
+        steps:['Dial *165# or open MTN app','Send to: 0778000000','Enter UGX amount → Confirm','Copy transaction reference']},
+      {id:'airtel-ug',icon:'📡',name:'Airtel UG',det:'Airtel Money',number:'0752000000',acc:'SkyBet',
+        steps:['Open Airtel Money → Send','Send to: 0752000000','Amount → PIN → Confirm']}
+    ],
+    presets:[2000,5000,10000,25000,50000,100000],
+    subPrices:{daily:2000,weekly:10000,monthly:30000,pro:60000}
+  },
+  {
+    code:'NG',flag:'🇳🇬',name:'Nigeria',cur:'NGN',sym:'₦',rate:1580,minDep:500,
+    methods:[
+      {id:'opay',icon:'💚',name:'OPay',det:'Instant Transfer',number:'09012345678',acc:'SkyBet Nigeria',
+        steps:['Open OPay → Transfer','Enter: 09012345678','Enter NGN amount → Confirm']},
+      {id:'palmpay',icon:'🌴',name:'PalmPay',det:'Mobile Money',number:'09087654321',acc:'SkyBet',
+        steps:['Open PalmPay → Send Money','Enter: 09087654321','Amount → Confirm']},
+      {id:'gtbank',icon:'🏦',name:'GTBank',det:'Bank Transfer',number:'0123456789',acc:'SkyBet Nigeria Ltd',
+        steps:['Open GTBank app → Transfer','SkyBet Nigeria Ltd · ACC: 0123456789','Transfer amount → confirm']}
+    ],
+    presets:[500,1000,2500,5000,10000,25000],
+    subPrices:{daily:500,weekly:2500,monthly:7500,pro:15000}
+  },
+  {
+    code:'GH',flag:'🇬🇭',name:'Ghana',cur:'GHS',sym:'₵',rate:14,minDep:10,
+    methods:[
+      {id:'momo',icon:'📱',name:'MTN MoMo',det:'Mobile Money',number:'0244000000',acc:'SkyBet Ghana',
+        steps:['Dial *170# or open MoMo','Send to: 0244000000','Enter GHS amount → Confirm']},
+      {id:'voda-gh',icon:'🔴',name:'Vodafone Cash',det:'Mobile Money',number:'0207000000',acc:'SkyBet',
+        steps:['Dial *110# → Send Money','Enter: 0207000000','Amount → PIN → Confirm']}
+    ],
+    presets:[10,20,50,100,200,500],
+    subPrices:{daily:10,weekly:50,monthly:150,pro:300}
+  },
+  {
+    code:'RW',flag:'🇷🇼',name:'Rwanda',cur:'RWF',sym:'RWF',rate:1300,minDep:1000,
+    methods:[
+      {id:'mtn-rw',icon:'📱',name:'MTN Mobile Money',det:'Send Money',number:'0788000000',acc:'SkyBet Rwanda',
+        steps:['Dial *182# or open MTN app','Send to: 0788000000','Enter RWF amount → Confirm']}
+    ],
+    presets:[1000,2000,5000,10000,25000,50000],
+    subPrices:{daily:1000,weekly:5000,monthly:15000,pro:30000}
+  },
+  {
+    code:'ET',flag:'🇪🇹',name:'Ethiopia',cur:'ETB',sym:'ETB',rate:55,minDep:100,
+    methods:[
+      {id:'telebirr',icon:'📲',name:'Telebirr',det:'Mobile Money',number:'0900000000',acc:'SkyBet Ethiopia',
+        steps:['Open Telebirr → Send Money','Enter: 0900000000','Enter ETB amount → Confirm']}
+    ],
+    presets:[100,200,500,1000,2500,5000],
+    subPrices:{daily:100,weekly:500,monthly:1500,pro:3000}
+  },
+  {
+    code:'ZM',flag:'🇿🇲',name:'Zambia',cur:'ZMW',sym:'ZMW',rate:25,minDep:20,
+    methods:[
+      {id:'airtel-zm',icon:'📱',name:'Airtel Money',det:'Send Money',number:'0971000000',acc:'SkyBet Zambia',
+        steps:['Open Airtel Money','Send to: 0971000000','Enter ZMW amount → Confirm']},
+      {id:'mtn-zm',icon:'🟡',name:'MTN MoMo ZM',det:'Mobile Money',number:'0961000000',acc:'SkyBet',
+        steps:['Open MTN MoMo','Send to: 0961000000','Amount → PIN → Confirm']}
+    ],
+    presets:[20,50,100,200,500,1000],
+    subPrices:{daily:20,weekly:100,monthly:300,pro:600}
+  }
+];
+
+const PLANS = [
+  {id:'daily',icon:'⚡',name:'Daily Pass',period:'24 Hours',popular:false,
+    feats:['Full predictor access','AI signal alerts','24-hour access','Basic support']},
+  {id:'weekly',icon:'🚀',name:'Weekly Pro',period:'7 Days',popular:false,
+    feats:['Full predictor access','AI signal alerts','Auto-cashout alerts','Priority signals']},
+  {id:'monthly',icon:'👑',name:'Monthly Elite',period:'30 Days',popular:true,
+    feats:['Everything in Weekly','Advanced AI predictions','VIP WhatsApp channel','Exclusive strategies','30-day access']},
+  {id:'pro',icon:'💎',name:'Pro Unlimited',period:'90 Days',popular:false,
+    feats:['Everything in Monthly','90-day access','Personal signal coach','WhatsApp VIP group','Guaranteed signals']}
+];
+
+const REVIEWS = [
+  {em:'🦁',name:'James Omondi',loc:'Nairobi, Kenya 🇰🇪',plan:'Monthly Elite',stars:'⭐⭐⭐⭐⭐',
+    text:'Been using for 3 weeks and already made back 10× my subscription cost. The AI signals are incredibly accurate especially on the 2×–5× range!',win:'Won KSH 14,820 this month'},
+  {em:'🔥',name:'Amara Diallo',loc:'Lagos, Nigeria 🇳🇬',plan:'Weekly Pro',stars:'⭐⭐⭐⭐⭐',
+    text:'Best predictor in Africa! The auto-cashout alerts saved me from so many crashes. Admin activates access so fast — within 3 minutes!',win:'Won ₦185,000 last week'},
+  {em:'⭐',name:'Kwame Asante',loc:'Accra, Ghana 🇬🇭',plan:'Monthly Elite',stars:'⭐⭐⭐⭐⭐',
+    text:'I was skeptical at first but after day one I was convinced. The signals hit 9 out of 10 times. Admin approved my subscription in 2 minutes!',win:'Won GHS 3,200 first week'},
+  {em:'🚀',name:'Fatuma Hassan',loc:'Mombasa, Kenya 🇰🇪',plan:'Pro Unlimited',stars:'⭐⭐⭐⭐⭐',
+    text:'Pro plan is 100% worth it. The VIP WhatsApp group gives advance warnings before big crashes. Never lost big since joining.',win:'Won KSH 42,000 this month'},
+  {em:'💎',name:'Tendai Moyo',loc:'Dar es Salaam 🇹🇿',plan:'Weekly Pro',stars:'⭐⭐⭐⭐⭐',
+    text:'The weekly plan pays for itself in the first hour. I follow every signal and cash out at the suggested multiplier. The admin is very responsive.',win:'Won TSh 280,000 this week'},
+  {em:'👑',name:'Grace Nakato',loc:'Kampala, Uganda 🇺🇬',plan:'Monthly Elite',stars:'⭐⭐⭐⭐⭐',
+    text:'SkyBet Uganda is the best! Paid via MTN MoMo, sent screenshot to admin on WhatsApp, got access in under 5 minutes. Very professional.',win:'Won USh 420,000 this month'}
+];
+
+// ════════════════════════════════════════
+//  DYNAMIC LEADERBOARD DATA
+// ════════════════════════════════════════
+let leaderboardData = [
+  {em:'🏆',name:'JamaaSafi',country:'🇰🇪',cur:'KSH',totalWin:143273,topMult:47.2,rounds:284,isNew:false,lastBump:0},
+  {em:'🥇',name:'BetKing254',country:'🇳🇬',cur:'₦',totalWin:890343,topMult:31.0,rounds:196,isNew:false,lastBump:0},
+  {em:'🚀',name:'NairobiStar',country:'🇰🇪',cur:'KSH',totalWin:89412,topMult:23.5,rounds:167,isNew:false,lastBump:0},
+  {em:'⭐',name:'SimbaFly_TZ',country:'🇹🇿',cur:'TSh',totalWin:480000,topMult:21.3,rounds:142,isNew:false,lastBump:0},
+  {em:'🦁',name:'AviatorGod',country:'🇬🇭',cur:'₵',totalWin:12400,topMult:18.7,rounds:128,isNew:false,lastBump:0},
+  {em:'🔥',name:'MpesaKing_KE',country:'🇰🇪',cur:'KSH',totalWin:67200,topMult:15.4,rounds:110,isNew:false,lastBump:0},
+  {em:'💎',name:'NakGrace',country:'🇺🇬',cur:'USh',totalWin:420000,topMult:14.8,rounds:98,isNew:false,lastBump:0},
+  {em:'👑',name:'RwandaWins',country:'🇷🇼',cur:'RWF',totalWin:280000,topMult:12.9,rounds:87,isNew:false,lastBump:0},
+];
+
+// Live wins ticker pool
+let tickerWins = [
+  {em:'🦁',name:'JamaaSafi',mult:'14.2x',win:'KSH 7,100'},
+  {em:'🚀',name:'BetKing254',mult:'8.7x',win:'₦ 43,500'},
+  {em:'⭐',name:'NairobiStar',mult:'23.5x',win:'KSH 11,750'},
+  {em:'🔥',name:'SimbaFly',mult:'5.3x',win:'TSh 26,500'},
+  {em:'💎',name:'AviatorGod',mult:'31.0x',win:'₵ 3,100'},
+  {em:'👑',name:'MpesaKing',mult:'9.1x',win:'KSH 4,550'},
+  {em:'🏆',name:'RwandaWins',mult:'47.2x',win:'RWF 94,000'},
+  {em:'💰',name:'NakGrace',mult:'12.8x',win:'USh 128,000'},
+  {em:'🎯',name:'TaliiKubwa',mult:'6.4x',win:'KSH 3,200'},
+  {em:'🌍',name:'AfricaFlyer',mult:'18.6x',win:'₦ 93,000'},
+];
+
+// ════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════
+let subCountry = COUNTRIES[0];
+let selectedPlan = null;
+let subMethod = null;
+let depCountry = COUNTRIES[0];
+let depMethod = null;
+let isSubscribed = false;
+let approvalRef = '';
+
+let balance = 5000;
+let gameState = 'waiting';
+let multiplier = 1.00;
+let crashPoint = 2.00;
+let animId = null;
+let startTime = null;
+let cdTimer = null;
+let cdVal = 5;
+let roundNum = 0;
+let sessionMax = 1;
+let totalWon = 0;
+let onlineCount = 247;
+const slots = {1:{placed:false,amount:0,cashedOut:false,autoOn:false},2:{placed:false,amount:0,cashedOut:false,autoOn:false}};
+let history = [], myBets = [], allBets = [], topWins = [], players = [];
+let sbTab = 'players', rsTab = 'all';
+const canvas = document.getElementById('gc');
+const ctx = canvas.getContext('2d');
+let W=0,H=0,graphPts=[],planeX=0,planeY=0,planeAngle=0;
+let gameInited = false;
+
+// ════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════
+function boot() {
+  makeStarsBg();
+  renderPlans();
+  buildSubCountryDrop();
+  buildSubPayMethods();
+  renderTickerTrack();
+  renderLeaderboard();
+  renderReviews();
+  startDynamicUpdates();
+  buildDepCountryDrop();
+}
+
+// ════════════════════════════════════════
+//  STARS BG
+// ════════════════════════════════════════
+function makeStarsBg() {
+  const el = document.getElementById('starsBg');
+  for(let i=0;i<120;i++){
+    const s = document.createElement('div');
+    const sz = Math.random()*1.8+0.3;
+    s.className = 'star';
+    s.style.cssText = `width:${sz}px;height:${sz}px;background:#fff;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${Math.random()*6+2}s;--delay:${Math.random()*8}s;opacity:${Math.random()*0.4+0.05};`;
+    el.appendChild(s);
+  }
+}
+
+// ════════════════════════════════════════
+//  TICKER
+// ════════════════════════════════════════
+function renderTickerTrack() {
+  const track = document.getElementById('tickerTrack');
+  const doubled = [...tickerWins,...tickerWins];
+  track.innerHTML = doubled.map(w =>
+    `<div class="ticker-item">
+      <div class="ti-em">${w.em}</div>
+      <div>
+        <div class="ti-name">${w.name}</div>
+        <div class="ti-amt">${w.win}</div>
+        <div class="ti-mult">@ ${w.mult}</div>
+      </div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  DYNAMIC LEADERBOARD
+// ════════════════════════════════════════
+function renderLeaderboard() {
+  const el = document.getElementById('leaderboardEl');
+  if(!el) return;
+
+  const sorted = [...leaderboardData].sort((a,b) => b.totalWin - a.totalWin);
+
+  el.innerHTML = sorted.map((p,i) => {
+    const rankClass = i===0?'r1':i===1?'r2':i===2?'r3':'rn';
+    const rankLabel = i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1);
+    const win = p.totalWin.toLocaleString();
+    const animDelay = i * 0.06;
+    return `<div class="lb-row" style="animation-delay:${animDelay}s">
+      <div class="lb-rank ${rankClass}">${i<3?rankLabel:'#'+(i+1)}</div>
+      <div class="lb-avatar" style="background:rgba(255,179,0,0.08);border-color:rgba(255,179,0,0.15);">${p.em}</div>
+      <div class="lb-info">
+        <div class="lb-name">${p.name} ${p.country}${p.isNew?'<span class="lb-new-badge">NEW</span>':''}</div>
+        <div class="lb-meta">${p.rounds} rounds · Best: ${p.topMult}×</div>
+      </div>
+      <div class="lb-right">
+        <div class="lb-win">${p.cur} ${win}</div>
+        <div class="lb-mult">🔥 ${p.topMult}× best</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// Dynamic leaderboard updates — makes it look LIVE
+function startDynamicUpdates() {
+  // Online count
+  setInterval(() => {
+    onlineCount = Math.max(200, onlineCount + (Math.random()>0.5?1:-1)*Math.floor(Math.random()*8));
+    const wpEl = document.getElementById('wpOnline');
+    const gEl = document.getElementById('gOnline');
+    const mEl = document.getElementById('mOnline');
+    if(wpEl) wpEl.textContent = onlineCount;
+    if(gEl) gEl.textContent = onlineCount;
+    if(mEl) mEl.textContent = onlineCount;
+  }, 3500);
+
+  // Leaderboard — bump random entries
+  setInterval(() => {
+    const idx = Math.floor(Math.random() * leaderboardData.length);
+    const bump = Math.floor(Math.random() * 2000 + 100);
+    leaderboardData[idx].totalWin += bump;
+    leaderboardData[idx].rounds += Math.random() > 0.6 ? 1 : 0;
+    leaderboardData[idx].isNew = false;
+    renderLeaderboard();
+  }, 4500);
+
+  // Occasionally add a new leader entry
+  setInterval(() => {
+    const newNames = ['ChezuFasta','KenyaFlier','TZKing','UgandaBoss','NaijaStar','GhanaFly'];
+    const flags = ['🇰🇪','🇹🇿','🇺🇬','🇳🇬','🇬🇭','🇷🇼'];
+    const ems = ['🎯','⚡','🌟','💥','🏅'];
+    const curs = ['KSH','TSh','USh','₦','₵','RWF'];
+    const ri = Math.floor(Math.random()*newNames.length);
+    const ci = Math.floor(Math.random()*curs.length);
+    const newEntry = {
+      em: ems[Math.floor(Math.random()*ems.length)],
+      name: newNames[ri]+'#'+Math.floor(Math.random()*999),
+      country: flags[ri],
+      cur: curs[ci],
+      totalWin: Math.floor(Math.random()*30000+5000),
+      topMult: +(Math.random()*20+3).toFixed(1),
+      rounds: Math.floor(Math.random()*50+10),
+      isNew: true
+    };
+    leaderboardData.push(newEntry);
+    leaderboardData.sort((a,b)=>b.totalWin-a.totalWin);
+    if(leaderboardData.length > 10) leaderboardData.pop();
+    renderLeaderboard();
+  }, 12000);
+
+  // Rotate ticker wins
+  setInterval(() => {
+    const names = ['MwanaKe','JamaaSafi','BetKing','SimbaFly','AfricaFlyer','TaliiKubwa','LionKing','ChezuFasta','NairobiFC','TZBoss'];
+    const ems = ['🦁','🚀','⭐','🔥','💰','👑','✈️','🎯','🏆','🦅'];
+    const flags = ['🇰🇪','🇳🇬','🇬🇭','🇹🇿','🇺🇬','🇷🇼'];
+    const curList = ['KSH','₦','₵','TSh','USh','RWF'];
+    const mults = ['3.2x','5.7x','8.4x','12.1x','18.6x','24.3x','31.0x','47.2x','2.8x','4.5x'];
+    const ri = Math.floor(Math.random()*names.length);
+    const fi = Math.floor(Math.random()*flags.length);
+    const mult = mults[Math.floor(Math.random()*mults.length)];
+    const bet = [100,200,500,1000][Math.floor(Math.random()*4)];
+    const winNum = (bet * parseFloat(mult)).toFixed(0);
+    tickerWins.unshift({
+      em: ems[ri],
+      name: names[ri]+'#'+Math.floor(Math.random()*999),
+      mult,
+      win: curList[fi]+' '+parseInt(winNum).toLocaleString()
+    });
+    tickerWins = tickerWins.slice(0, 14);
+    renderTickerTrack();
+  }, 6000);
+
+  // Animate hero stats
+  let members = 12850, rounds = 284;
+  setInterval(() => {
+    members += Math.floor(Math.random()*3+1);
+    rounds += Math.random()>0.65 ? 1 : 0;
+    const mEl = document.getElementById('statMembers');
+    const rEl = document.getElementById('statRounds');
+    if(mEl) mEl.textContent = members.toLocaleString();
+    if(rEl) rEl.textContent = rounds;
+  }, 5000);
+}
+
+// ════════════════════════════════════════
+//  PLANS
+// ════════════════════════════════════════
+function renderPlans() {
+  const grid = document.getElementById('plansGrid');
+  if(!grid) return;
+  grid.innerHTML = PLANS.map(p => {
+    const price = subCountry.subPrices[p.id];
+    return `<div class="plan-card${p.popular?' popular':''}" id="pc_${p.id}" onclick="selectPlan('${p.id}')">
+      ${p.popular?'<div class="pop-badge">🔥 POPULAR</div>':''}
+      <div class="plan-icon">${p.icon}</div>
+      <div class="plan-name">${p.name}</div>
+      <div class="plan-price">${subCountry.sym}${price.toLocaleString()}</div>
+      <div class="plan-period">${p.period}</div>
+      <div class="plan-feats">${p.feats.map(f=>`<div class="plan-feat"><span class="pf-icon">✓</span><span>${f}</span></div>`).join('')}</div>
+      <button class="plan-btn">Select Plan</button>
+    </div>`;
+  }).join('');
+}
+
+function selectPlan(id) {
+  selectedPlan = PLANS.find(p=>p.id===id);
+  document.querySelectorAll('.plan-card').forEach(c=>c.classList.remove('selected'));
+  const pc = document.getElementById('pc_'+id);
+  if(pc) pc.classList.add('selected');
+  const price = subCountry.subPrices[id];
+  document.getElementById('sbPlanName').textContent = selectedPlan.icon+' '+selectedPlan.name+' · '+selectedPlan.period;
+  document.getElementById('sbPlanPrice').textContent = subCountry.sym+price.toLocaleString();
+  const box = document.getElementById('subBox');
+  box.classList.add('show');
+  box.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ════════════════════════════════════════
+//  SUB COUNTRY DROP
+// ════════════════════════════════════════
+function buildSubCountryDrop() {
+  const drop = document.getElementById('scDrop');
+  drop.innerHTML = COUNTRIES.map((c,i) =>
+    `<div class="c-opt${i===0?' sel':''}" onclick="selSubCountry(${i})">
+      <div class="c-opt-flag">${c.flag}</div>
+      <div class="c-opt-info"><div class="c-opt-name">${c.name}</div><div class="c-opt-cur">${c.cur}</div></div>
+      <div class="c-opt-min">${c.sym}${c.subPrices.daily}</div>
+    </div>`).join('');
+}
+
+function toggleSubDrop() {
+  const drop = document.getElementById('scDrop');
+  const arr = document.getElementById('scArr');
+  const sel = document.getElementById('scSel');
+  drop.classList.toggle('open');
+  sel.classList.toggle('open');
+  arr.style.transform = drop.classList.contains('open')?'rotate(180deg)':'';
+}
+
+function selSubCountry(idx) {
+  subCountry = COUNTRIES[idx];
+  document.getElementById('scFlag').textContent = subCountry.flag;
+  document.getElementById('scName').textContent = subCountry.name+' — '+subCountry.cur;
+  document.getElementById('scSub').textContent = 'Pay in '+subCountry.name;
+  document.querySelectorAll('#scDrop .c-opt').forEach((el,i)=>el.classList.toggle('sel',i===idx));
+  document.getElementById('scDrop').classList.remove('open');
+  document.getElementById('scSel').classList.remove('open');
+  document.getElementById('scArr').style.transform='';
+  renderPlans();
+  subMethod = null;
+  document.getElementById('scPayDetail').classList.remove('show');
+  buildSubPayMethods();
+  if(selectedPlan){
+    document.getElementById('sbPlanPrice').textContent = subCountry.sym+subCountry.subPrices[selectedPlan.id].toLocaleString();
+  }
+}
+
+function buildSubPayMethods() {
+  const el = document.getElementById('scPayMethods');
+  el.innerHTML = subCountry.methods.map(m =>
+    `<div class="pm-card" id="spm_${m.id}" onclick="selSubMethod('${m.id}')">
+      <div class="pm-icon">${m.icon}</div>
+      <div class="pm-name">${m.name}</div>
+      <div class="pm-det">${m.det}</div>
+    </div>`).join('');
+}
+
+function selSubMethod(id) {
+  subMethod = subCountry.methods.find(m=>m.id===id);
+  document.querySelectorAll('.pm-card').forEach(el=>el.classList.remove('sel'));
+  const pm = document.getElementById('spm_'+id);
+  if(pm) pm.classList.add('sel');
+  const box = document.getElementById('scPayDetail');
+  box.classList.add('show');
+  box.innerHTML = `
+    <div class="pd-head">💳 ${subMethod.name} — ${subMethod.det}</div>
+    <div class="pd-row">
+      <div class="pd-lbl">Account Name</div>
+      <div class="pd-val">${subMethod.acc}</div>
+    </div>
+    <div class="pd-row">
+      <div class="pd-lbl">${id.includes('bank')||id==='equity'||id==='gtbank'?'Account Number':'Phone / Till Number'}</div>
+      <div class="pd-val" id="sdNum">${subMethod.number}</div>
+    </div>
+    <button class="copy-btn" onclick="copySubNum()">📋 Copy ${id.includes('bank')||id==='equity'||id==='gtbank'?'Account No':'Number'}</button>
+    <div class="how-box" style="margin-top:10px;">
+      <div class="how-title">📋 Steps:</div>
+      ${subMethod.steps.map((s,i)=>`<div class="how-step"><div class="snum">${i+1}</div><div>${s}</div></div>`).join('')}
+    </div>`;
+}
+
+function copySubNum() {
+  if(!subMethod) return;
+  navigator.clipboard.writeText(subMethod.number).catch(()=>{});
+  showToast('📋 Copied: '+subMethod.number,'t-info');
+}
+
+// ════════════════════════════════════════
+//  SUBSCRIPTION SUBMIT
+// ════════════════════════════════════════
+function submitSub() {
+  if(!selectedPlan){showToast('Please select a plan first!','t-warn');return;}
+  if(!subMethod){showToast('Please choose a payment method!','t-warn');return;}
+  const ref = document.getElementById('txRef').value.trim();
+  const phone = document.getElementById('txPhone').value.trim();
+  if(!ref){showToast('Please enter your transaction code!','t-warn');return;}
+  if(!phone){showToast('Please enter your phone number!','t-warn');return;}
+
+  // Generate approval reference
+  approvalRef = 'AV-'+Math.floor(100000+Math.random()*900000);
+  document.getElementById('aoRef').textContent = 'REF: '+approvalRef+' · Plan: '+selectedPlan.name+' · Phone: '+phone;
+
+  // Build WhatsApp message
+  const price = subCountry.subPrices[selectedPlan.id];
+  const waMsg = encodeURIComponent(
+    '🎮 *SkyBet Aviator Subscription*\n\n'+
+    '📋 Plan: '+selectedPlan.name+' ('+selectedPlan.period+')\n'+
+    '💰 Amount: '+subCountry.sym+price.toLocaleString()+'\n'+
+    '📱 Phone: '+phone+'\n'+
+    '🏦 Method: '+subMethod.name+'\n'+
+    '🔢 Tx Code: '+ref+'\n'+
+    '🆔 Ref: '+approvalRef+'\n\n'+
+    'Please approve my access. Thank you!'
+  );
+  document.getElementById('aoWaBtn').onclick = () => {
+    window.open('https://wa.me/254759401893?text='+waMsg,'_blank');
+  };
+
+  // Show approval overlay
+  document.getElementById('approvalOverlay').classList.add('show');
+  showToast('✅ Payment submitted! Notifying admin...','t-win');
+
+  // Simulate admin approval after 8-15 seconds (demo)
+  const approvalDelay = 8000 + Math.random()*7000;
+  setTimeout(() => {
+    document.getElementById('approvalOverlay').classList.remove('show');
+    document.getElementById('ssPlanName').textContent = selectedPlan.icon+' '+selectedPlan.name+' — Active ✅';
+    const exp = selectedPlan.id==='daily'?'24 hours':selectedPlan.id==='weekly'?'7 days':selectedPlan.id==='monthly'?'30 days':'90 days';
+    document.getElementById('ssPlanExp').textContent = 'Valid for '+exp+' · Full AI signal access unlocked';
+    document.getElementById('successScreen').classList.add('show');
+    isSubscribed = true;
+  }, approvalDelay);
+}
+
+function openAdminWA() {
+  if(!selectedPlan||!subMethod) return;
+  const ref = document.getElementById('txRef')?.value||'—';
+  const phone = document.getElementById('txPhone')?.value||'—';
+  const price = subCountry.subPrices[selectedPlan.id];
+  const waMsg = encodeURIComponent(
+    '🎮 *SkyBet Aviator Subscription*\n\n'+
+    '📋 Plan: '+selectedPlan.name+' ('+selectedPlan.period+')\n'+
+    '💰 Amount: '+subCountry.sym+price.toLocaleString()+'\n'+
+    '📱 Phone: '+phone+'\n'+
+    '🏦 Method: '+subMethod.name+'\n'+
+    '🔢 Tx Code: '+ref+'\n'+
+    '🆔 Ref: '+approvalRef+'\n\n'+
+    'Please approve my access. Thank you!'
+  );
+  window.open('https://wa.me/254759401893?text='+waMsg,'_blank');
+}
+
+// ════════════════════════════════════════
+//  LOGIN
+// ════════════════════════════════════════
+function doLogin() {
+  const phone = document.getElementById('lPhone').value.trim();
+  const pin = document.getElementById('lPin').value.trim();
+  if(!isSubscribed){
+    document.getElementById('lLock').style.display='block';
+    showToast('🔒 Subscribe to a plan first! Admin approves access.','t-warn');
+    document.getElementById('plansGrid').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  if(!phone){showToast('Enter your phone number','t-warn');return;}
+  showToast('✅ Logging in...','t-info');
+  setTimeout(()=>enterGame(),1200);
+}
+
+function skipToDemo() {
+  document.getElementById('approvalOverlay').classList.remove('show');
+  showToast('🎮 Loading demo mode...','t-info');
+  setTimeout(()=>enterGame(),800);
+}
+
+function enterGame() {
+  document.getElementById('welcomePage').style.display='none';
+  document.getElementById('successScreen').classList.remove('show');
+  const gp = document.getElementById('gamePage');
+  gp.classList.add('show');
+  document.body.style.overflow='hidden';
+  document.documentElement.style.overflow='hidden';
+  initGame();
+}
+
+// ════════════════════════════════════════
+//  REVIEWS
+// ════════════════════════════════════════
+function renderReviews() {
+  const grid = document.getElementById('reviewsGrid');
+  if(!grid) return;
+  grid.innerHTML = REVIEWS.map(r =>
+    `<div class="rev-card">
+      <div class="rev-hdr">
+        <div class="rev-av">${r.em}</div>
+        <div>
+          <div class="rev-name">${r.name}</div>
+          <div class="rev-loc">${r.loc}</div>
+          <div class="rev-stars">${r.stars}</div>
+          <div class="rev-plan-badge">${r.plan}</div>
+        </div>
+      </div>
+      <div class="rev-text">"${r.text}"</div>
+      <div class="rev-win">✅ ${r.win}</div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  GAME ENGINE
+// ════════════════════════════════════════
+function initGame() {
+  if(gameInited) return;
+  gameInited = true;
+  resizeCanvas();
+  window.addEventListener('resize',resizeCanvas);
+  makeGameStars();
+  makeTopWins();
+  makePlayers();
+  renderSb();renderRs();
+  for(let i=0;i<28;i++) history.push(genCrash());
+  renderHist();
+  [1,2].forEach(i=>{
+    document.getElementById('amt'+i).addEventListener('input',()=>updatePrev(i));
+    document.getElementById('ac'+i).addEventListener('input',()=>updatePrev(i));
+  });
+  updatePrev(1);updatePrev(2);
+  startCD();
+  setInterval(updatePlayers,4200);
+  setInterval(renderRs,5000);
+  buildDepPayGrid();
+  renderDepPresets();
+  updateDepConv();
+}
+
+function resizeCanvas(){
+  const a=document.getElementById('canvasArea');
+  if(!a)return;
+  W=canvas.width=a.offsetWidth;H=canvas.height=a.offsetHeight;
+}
+
+function makeGameStars(){
+  const el=document.getElementById('gameStars');el.innerHTML='';
+  for(let i=0;i<80;i++){
+    const s=document.createElement('div');const sz=Math.random()*1.6+0.3;
+    s.style.cssText=`position:absolute;background:#fff;border-radius:50%;width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;opacity:${Math.random()*0.4+0.1};animation:ldot ${Math.random()*5+2}s ease-in-out ${Math.random()*5}s infinite;`;
+    el.appendChild(s);
+  }
+}
+
+function genCrash(){
+  const r=Math.random();
+  if(r<0.28)return+(Math.random()*0.7+1.05).toFixed(2);
+  if(r<0.52)return+(Math.random()*1.2+1.5).toFixed(2);
+  if(r<0.70)return+(Math.random()*3+2.5).toFixed(2);
+  if(r<0.84)return+(Math.random()*8+4).toFixed(2);
+  if(r<0.92)return+(Math.random()*20+10).toFixed(2);
+  if(r<0.96)return+(Math.random()*50+25).toFixed(2);
+  return+(Math.random()*200+50).toFixed(2);
+}
+
+function startCD(){
+  gameState='waiting';multiplier=1.00;graphPts=[];crashPoint=genCrash();roundNum++;
+  [1,2].forEach(i=>{if(!slots[i].placed)setSlotState(i,'ready');});
+  document.getElementById('cdWrap').classList.add('show');
+  document.getElementById('crashWrap').classList.remove('show');
+  document.getElementById('expEl').classList.remove('show');
+  document.getElementById('multWrap').style.opacity='0';
+  document.getElementById('plane').style.display='none';
+  ctx.clearRect(0,0,W,H);
+  cdVal=5;document.getElementById('cdNum').textContent=cdVal;
+  if(cdTimer)clearInterval(cdTimer);
+  cdTimer=setInterval(()=>{
+    cdVal--;document.getElementById('cdNum').textContent=Math.max(0,cdVal);
+    if(cdVal<=0){clearInterval(cdTimer);document.getElementById('cdWrap').classList.remove('show');startFlight();}
+  },1000);
+  makeRoundBets();
+}
+
+function startFlight(){
+  gameState='flying';startTime=performance.now();multiplier=1.00;graphPts=[];
+  document.getElementById('multWrap').style.opacity='1';
+  document.getElementById('multVal').className='mult-val s-fly';
+  document.getElementById('multLbl').textContent='Flying';
+  document.getElementById('plane').style.display='';
+  [1,2].forEach(i=>{if(slots[i].placed)setSlotState(i,'cashout');else setSlotState(i,'waiting');});
+  flyTick();
+}
+
+function flyTick(){
+  const elapsed=(performance.now()-startTime)/1000;
+  multiplier=Math.round(Math.exp(elapsed*0.065)*100)/100;
+  const mv=document.getElementById('multVal');
+  mv.textContent=multiplier.toFixed(2)+'x';
+  if(multiplier>=50)mv.className='mult-val s-mega';
+  else if(multiplier>=10)mv.className='mult-val s-high';
+  else if(multiplier>=3)mv.className='mult-val s-mid';
+  else mv.className='mult-val s-fly';
+  [1,2].forEach(i=>{
+    const btn=document.getElementById('actBtn'+i);
+    if(slots[i].placed&&!slots[i].cashedOut&&btn.className.includes('cashout')){
+      btn.textContent='CASH OUT  KSH '+(slots[i].amount*multiplier).toFixed(0);
+    }
+    if(slots[i].placed&&!slots[i].cashedOut&&slots[i].autoOn){
+      const ac=parseFloat(document.getElementById('ac'+i).value)||2;
+      if(multiplier>=ac)doCashOut(i);
+    }
+  });
+  const prog=Math.min(elapsed/28,1);
+  planeX=35+prog*(W-170);planeY=H*0.78-(prog*prog*H*0.86);planeY=Math.max(25,planeY);
+  const dy=-(2*prog*H*0.86/28);
+  planeAngle=Math.max(-54,Math.min(4,Math.atan2(dy,1)*180/Math.PI));
+  document.getElementById('plane').style.transform=`translate(${planeX}px,${planeY}px) rotate(${planeAngle}deg)`;
+  graphPts.push({x:planeX+48,y:planeY+30});
+  drawGraph();
+  sessionMax=Math.max(sessionMax,multiplier);
+  document.getElementById('mLast').textContent=multiplier.toFixed(2)+'×';
+  document.getElementById('mMax').textContent=sessionMax.toFixed(2)+'×';
+  if(multiplier>=crashPoint){doCrash();return;}
+  animId=requestAnimationFrame(flyTick);
+}
+
+function drawGraph(){
+  ctx.clearRect(0,0,W,H);
+  if(graphPts.length<2)return;
+  const isHigh=multiplier>=10,isMid=multiplier>=3;
+  ctx.beginPath();ctx.moveTo(graphPts[0].x,graphPts[0].y);
+  for(let i=1;i<graphPts.length;i++){
+    if(i>1){const mx=(graphPts[i-1].x+graphPts[i].x)/2,my=(graphPts[i-1].y+graphPts[i].y)/2;ctx.quadraticCurveTo(graphPts[i-1].x,graphPts[i-1].y,mx,my);}
+    else ctx.lineTo(graphPts[i].x,graphPts[i].y);
+  }
+  ctx.lineTo(graphPts[graphPts.length-1].x,graphPts[graphPts.length-1].y);
+  const g=ctx.createLinearGradient(graphPts[0].x,0,graphPts[graphPts.length-1].x,0);
+  g.addColorStop(0,'rgba(232,50,26,0.7)');
+  g.addColorStop(0.5,isMid?'rgba(255,107,0,0.9)':'rgba(232,50,26,0.9)');
+  g.addColorStop(1,isHigh?'rgba(0,212,104,1)':isMid?'rgba(255,179,0,1)':'rgba(232,50,26,1)');
+  ctx.strokeStyle=g;ctx.lineWidth=3.5;ctx.lineJoin='round';
+  ctx.shadowColor=isHigh?'#00d468':isMid?'#ff8800':'#e8321a';ctx.shadowBlur=14;ctx.stroke();ctx.shadowBlur=0;
+  ctx.beginPath();ctx.moveTo(graphPts[0].x,graphPts[0].y);
+  for(let i=1;i<graphPts.length;i++){
+    if(i>1){const mx=(graphPts[i-1].x+graphPts[i].x)/2,my=(graphPts[i-1].y+graphPts[i].y)/2;ctx.quadraticCurveTo(graphPts[i-1].x,graphPts[i-1].y,mx,my);}
+    else ctx.lineTo(graphPts[i].x,graphPts[i].y);
+  }
+  ctx.lineTo(graphPts[graphPts.length-1].x,H);ctx.lineTo(graphPts[0].x,H);ctx.closePath();
+  const fg=ctx.createLinearGradient(0,0,0,H);
+  fg.addColorStop(0,isHigh?'rgba(0,212,104,0.15)':isMid?'rgba(255,107,0,0.12)':'rgba(232,50,26,0.12)');
+  fg.addColorStop(1,'transparent');ctx.fillStyle=fg;ctx.fill();
+  [1.5,2,3,5,10].forEach(m=>{
+    const t=Math.log(m)/0.065,p=Math.min(t/28,1);const y=H*0.78-(p*p*H*0.86);
+    if(y>12&&y<H-5){
+      ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;ctx.setLineDash([4,12]);
+      ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();ctx.setLineDash([]);
+      ctx.fillStyle='rgba(140,150,180,0.45)';ctx.font='10px "Share Tech Mono",monospace';ctx.textAlign='right';
+      ctx.fillText(m+'×',W-6,y-4);
+    }
+  });
+}
+
+function doCrash(){
+  gameState='crashed';if(animId)cancelAnimationFrame(animId);
+  const final=multiplier;
+  const exp=document.getElementById('expEl');
+  exp.style.left=(planeX+48)+'px';exp.style.top=(planeY+30)+'px';
+  document.getElementById('plane').style.display='none';exp.classList.add('show');
+  document.getElementById('crashAt').textContent='Flew away at '+final.toFixed(2)+'×';
+  document.getElementById('crashWrap').classList.add('show');
+  document.getElementById('multWrap').style.opacity='0';
+  [1,2].forEach(i=>{
+    if(slots[i].placed&&!slots[i].cashedOut){
+      myBets.unshift({round:roundNum,bet:slots[i].amount,cashout:null,mult:final,profit:-slots[i].amount,win:false});
+      showToast('💥 Bet '+i+' lost — KSH '+slots[i].amount.toFixed(0),'t-loss');
+      slots[i].placed=false;
+    }
+    setSlotState(i,'ready');
+  });
+  history.unshift(final);if(history.length>50)history.pop();renderHist();
+  allBets.forEach(b=>{if(!b.cashedOut)b.crashed=true;});renderRs();
+  ctx.clearRect(0,0,W,H);
+  if(graphPts.length>1){ctx.beginPath();ctx.moveTo(graphPts[0].x,graphPts[0].y);graphPts.forEach((p,i)=>{if(i)ctx.lineTo(p.x,p.y);});ctx.strokeStyle='rgba(232,50,26,0.22)';ctx.lineWidth=2;ctx.stroke();}
+  setTimeout(()=>{exp.classList.remove('show');startCD();},3200);
+}
+
+function handleAction(slot){
+  const btn=document.getElementById('actBtn'+slot);const c=btn.className;
+  if(c.includes('btn-bet'))placeBet(slot);
+  else if(c.includes('btn-cashout'))doCashOut(slot);
+  else if(c.includes('btn-cancel'))cancelBet(slot);
+}
+function placeBet(slot){
+  if(gameState==='flying'){showToast('⚠️ Wait for next round!','t-warn');return;}
+  const amt=parseFloat(document.getElementById('amt'+slot).value);
+  if(!amt||amt<1){showToast('Minimum bet is KSH 1','t-warn');return;}
+  if(amt>balance){showToast('Insufficient balance!','t-loss');return;}
+  if(slots[slot].placed)return;
+  balance-=amt;updateBal();
+  slots[slot]={...slots[slot],placed:true,amount:amt,cashedOut:false};
+  setSlotState(slot,'active');showToast('✅ Bet '+slot+': KSH '+amt.toFixed(0)+' placed','t-info');updatePrev(slot);
+}
+function cancelBet(slot){
+  if(!slots[slot].placed||gameState==='flying')return;
+  balance+=slots[slot].amount;updateBal();slots[slot].placed=false;
+  setSlotState(slot,'ready');showToast('❌ Bet '+slot+' cancelled','t-info');
+}
+function doCashOut(slot){
+  if(!slots[slot].placed||slots[slot].cashedOut||gameState!=='flying')return;
+  slots[slot].cashedOut=true;
+  const win=slots[slot].amount*multiplier;const profit=win-slots[slot].amount;
+  balance+=win;totalWon+=profit;updateBal();
+  document.getElementById('mWon').textContent='KSH '+totalWon.toFixed(0);
+  const chip=document.createElement('div');chip.className='chip win';
+  chip.textContent='+KSH '+win.toFixed(0)+' @ '+multiplier.toFixed(2)+'×';
+  chip.style.left=(planeX+48)+'px';chip.style.top=planeY+'px';
+  document.getElementById('canvasArea').appendChild(chip);setTimeout(()=>chip.remove(),1900);
+  myBets.unshift({round:roundNum,bet:slots[slot].amount,cashout:multiplier,profit,win:true});
+  showToast('🎉 Cashed Out! KSH '+win.toFixed(0)+' at '+multiplier.toFixed(2)+'×','t-win');
+  setSlotState(slot,'ready');slots[slot].placed=false;renderSb();
+}
+function setSlotState(slot,state){
+  const btn=document.getElementById('actBtn'+slot);const card=document.getElementById('card'+slot);const sts=document.getElementById('sts'+slot);
+  card.className='bet-card';btn.disabled=false;
+  if(state==='ready'){btn.className='act-btn btn-bet';btn.textContent='PLACE BET';sts.className='slot-sts sts-ready';sts.textContent='Ready';}
+  else if(state==='active'){card.className='bet-card active-card';btn.className='act-btn btn-cancel';btn.textContent='CANCEL BET';sts.className='slot-sts sts-active';sts.textContent='Placed';}
+  else if(state==='cashout'){card.className='bet-card active-card';btn.className='act-btn btn-cashout';btn.textContent='CASH OUT';sts.className='slot-sts sts-fly';sts.textContent='Flying';}
+  else if(state==='waiting'){card.className='bet-card wait-card';btn.className='act-btn btn-wait';btn.textContent='WAITING...';btn.disabled=true;sts.className='slot-sts sts-wait';sts.textContent='Next Round';}
+}
+function stepAmt(s,d){const i=document.getElementById('amt'+s);i.value=Math.max(1,(parseFloat(i.value)||0)+d);updatePrev(s);}
+function addAmt(s,v){const i=document.getElementById('amt'+s);i.value=(parseFloat(i.value)||0)+v;updatePrev(s);}
+function halfAmt(s){const i=document.getElementById('amt'+s);i.value=Math.max(1,Math.floor((parseFloat(i.value)||0)/2));updatePrev(s);}
+function dblAmt(s){const i=document.getElementById('amt'+s);i.value=Math.min(balance,(parseFloat(i.value)||0)*2);updatePrev(s);}
+function maxAmt(s){const i=document.getElementById('amt'+s);i.value=Math.floor(balance);updatePrev(s);}
+function updatePrev(slot){
+  const amt=parseFloat(document.getElementById('amt'+slot).value)||0;
+  const ac=parseFloat(document.getElementById('ac'+slot).value)||2;
+  document.getElementById('prev'+slot).innerHTML='At '+ac.toFixed(2)+'×: <span class="wv">KSH '+(amt*ac).toFixed(0)+'</span>';
+}
+function toggleAuto(slot){slots[slot].autoOn=!slots[slot].autoOn;document.getElementById('tog'+slot).classList.toggle('on',slots[slot].autoOn);document.getElementById('ac'+slot).disabled=!slots[slot].autoOn;}
+function setMode(mode,btn){document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function updateBal(){document.getElementById('balVal').textContent='KSH '+balance.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');}
+
+function renderHist(){
+  const row=document.getElementById('histRow');
+  row.innerHTML=history.slice(0,30).map(m=>{
+    let c='hp-low';if(m>=100)c='hp-mega';else if(m>=20)c='hp-moon';else if(m>=10)c='hp-high';else if(m>=3)c='hp-mid';
+    return '<span class="hp '+c+'">'+m.toFixed(2)+'×</span>';
+  }).join('');row.scrollLeft=0;
+}
+
+const pNames=['MwanaKe','JamaaSafi','BetKing254','MpesaMillionaire','NairobiStar','TaliiKubwa','KenyanHero','FastBet','LionKing','ChezuFasta','SimbaFly','SkyHunter','NairobiFC','TZBoss','UgandaWins','GhanaFlier','NaijaKing','RwandaStar'];
+const pEmojis=['🦁','🚀','⭐','🔥','💰','👑','✈️','🎯','🏆','🦅','🌍','⚡','🎪','💎','🏅','🌟','💥','🎖️'];
+const pColors=['#e8321a','#29b6f6','#00d468','#ffb300','#ff6b00','#ab47bc','#ec407a','#26c6da'];
+
+function makePlayers(){
+  players=[];
+  for(let i=0;i<22;i++){players.push({name:pNames[i%pNames.length]+'#'+Math.floor(Math.random()*999),em:pEmojis[Math.floor(Math.random()*pEmojis.length)],col:pColors[Math.floor(Math.random()*pColors.length)],bet:(Math.random()*2000+50).toFixed(0),status:['flying','flying','won','lost','flying'][Math.floor(Math.random()*5)],co:(Math.random()*8+1.1).toFixed(2)});}
+}
+function makeRoundBets(){
+  allBets=[];const n=Math.floor(Math.random()*18+12);
+  for(let i=0;i<n;i++){allBets.push({name:pNames[Math.floor(Math.random()*pNames.length)],em:pEmojis[Math.floor(Math.random()*pEmojis.length)],bet:(Math.random()*1500+50).toFixed(0),cashedAt:Math.random()>0.45?(Math.random()*crashPoint*0.88+1.1).toFixed(2):null,cashedOut:false,crashed:false});}
+  allBets.forEach(b=>{if(b.cashedAt&&parseFloat(b.cashedAt)<1.5)b.cashedOut=true;});
+}
+function updatePlayers(){players.forEach(p=>{if(Math.random()>0.6){p.status=['flying','won','lost','flying','flying'][Math.floor(Math.random()*5)];p.bet=(Math.random()*2000+50).toFixed(0);p.co=(Math.random()*8+1.1).toFixed(2);}});renderSb();}
+function makeTopWins(){
+  const ns=['MwanaKe','BetKing254','NairobiStar','SimbaFly','TaliiKubwa'];const em=['🦁','🚀','⭐','🔥','👑'];
+  for(let i=0;i<8;i++){const b=Math.random()*1000+100;const m=Math.random()*35+5;topWins.push({name:ns[i%5],av:em[i%5],bet:b,mult:m,win:b*m});}
+  topWins.sort((a,b)=>b.win-a.win);
+}
+function renderSb(){
+  const el=document.getElementById('sbBody');if(!el)return;
+  if(sbTab==='players'){el.innerHTML=players.map(p=>'<div class="p-row"><div class="p-av" style="background:'+p.col+'15;border:1px solid '+p.col+'28;">'+p.em+'</div><div class="p-info"><div class="p-name">'+p.name+'</div><div class="p-bet">KSH '+p.bet+'</div></div><div class="p-res '+(p.status==='won'?'p-win':p.status==='lost'?'p-loss':'p-fly')+'">'+(p.status==='won'?p.co+'×':p.status==='lost'?'✗':'✈')+'</div></div>').join('');}
+  else{if(!myBets.length){el.innerHTML='<div style="text-align:center;padding:40px 10px;color:var(--text2);font-size:13px;">No bets yet this session</div>';return;}el.innerHTML=myBets.slice(0,30).map(b=>'<div class="p-row"><div class="p-info"><div class="p-name">Round #'+b.round+'</div><div class="p-bet">KSH '+b.bet.toFixed(0)+' '+(b.win?'→ '+b.cashout.toFixed(2)+'×':'')+'</div></div><div class="p-res '+(b.win?'p-win':'p-loss')+'">'+(b.win?'+KSH '+b.profit.toFixed(0):'-KSH '+Math.abs(b.profit).toFixed(0))+'</div></div>').join('');}
+}
+function switchSb(tab,btn){sbTab=tab;document.querySelectorAll('.stab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderSb();}
+function renderRs(){
+  const el=document.getElementById('rsBody');if(!el)return;
+  if(rsTab==='all'){if(!allBets.length){el.innerHTML='<div style="text-align:center;padding:28px;color:var(--text2);font-size:12px;">Waiting for round...</div>';return;}el.innerHTML=allBets.map(b=>{const won=b.cashedOut;const crashed=b.crashed&&!b.cashedOut;return '<div class="rsb-row"><div><div class="rsb-name">'+b.em+' '+b.name+'</div><div class="rsb-bet">KSH '+b.bet+'</div></div><div class="rsb-result" style="color:'+(won?'var(--green)':crashed?'var(--red)':'var(--gold)')+'">'+(won?b.cashedAt+'×':crashed?'Lost':'✈ Flying')+'</div></div>';}).join('');}
+  else{if(!topWins.length){el.innerHTML='<div style="text-align:center;padding:28px;color:var(--text2);font-size:12px;">No top wins yet</div>';return;}el.innerHTML=topWins.map((w,i)=>'<div class="tw-row"><div class="tw-rank">#'+(i+1)+'</div><div class="tw-av" style="background:rgba(255,179,0,0.08);border:1px solid rgba(255,179,0,0.12);">'+w.av+'</div><div class="tw-info"><div class="tw-name">'+w.name+'</div><div class="tw-det">KSH '+w.bet.toFixed(0)+' @ '+w.mult.toFixed(2)+'×</div></div><div class="tw-amt">KSH '+w.win.toFixed(0)+'</div></div>').join('');}
+}
+function switchRs(tab,btn){rsTab=tab;document.querySelectorAll('.rstab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderRs();}
+
+// ════════════════════════════════════════
+//  DEPOSIT MODAL
+// ════════════════════════════════════════
+function openDep(){document.getElementById('depModal').classList.add('show');}
+function closeDep(){document.getElementById('depModal').classList.remove('show');}
+function handleMBg(e){if(e.target===document.getElementById('depModal'))closeDep();}
+
+function buildDepCountryDrop(){
+  const drop=document.getElementById('dCDrop');
+  drop.innerHTML=COUNTRIES.map((c,i)=>'<div class="c-opt'+(i===0?' sel':'')+'" onclick="selDepCountry('+i+')"><div class="c-opt-flag">'+c.flag+'</div><div class="c-opt-info"><div class="c-opt-name">'+c.name+'</div><div class="c-opt-cur">'+c.cur+'</div></div><div class="c-opt-min">'+c.sym+c.minDep.toLocaleString()+'</div></div>').join('');
+}
+function toggleDepDrop(){
+  const drop=document.getElementById('dCDrop');const arr=document.getElementById('dCArr');const sel=document.getElementById('dCSel');
+  drop.classList.toggle('open');sel.classList.toggle('open');
+  arr.style.transform=drop.classList.contains('open')?'rotate(180deg)':'';
+}
+function selDepCountry(idx){
+  depCountry=COUNTRIES[idx];
+  document.getElementById('dCFlag').textContent=depCountry.flag;
+  document.getElementById('dCName').textContent=depCountry.name+' — '+depCountry.cur;
+  document.getElementById('dCRate').textContent='Min: '+depCountry.sym+depCountry.minDep.toLocaleString();
+  document.getElementById('dCurPfx').textContent=depCountry.sym;
+  document.getElementById('depAmt').value=depCountry.presets[1];
+  document.querySelectorAll('#dCDrop .c-opt').forEach((el,i)=>el.classList.toggle('sel',i===idx));
+  document.getElementById('dCDrop').classList.remove('open');
+  document.getElementById('dCSel').classList.remove('open');
+  document.getElementById('dCArr').style.transform='';
+  depMethod=null;buildDepPayGrid();renderDepPresets();updateDepConv();
+  document.getElementById('depPayDet').classList.remove('show');
+  document.getElementById('depHowBox').style.display='none';
+}
+function renderDepPresets(){
+  document.getElementById('depPresets').innerHTML=depCountry.presets.map(p=>'<button class="preset" onclick="setDepPreset('+p+')">'+depCountry.sym+p.toLocaleString()+'</button>').join('');
+}
+function setDepPreset(v){
+  document.getElementById('depAmt').value=v;
+  document.querySelectorAll('.preset').forEach(b=>{const bv=parseInt(b.textContent.replace(/[^\d]/g,''));b.classList.toggle('ap',bv===v);});
+  updateDepConv();
+}
+function updateDepConv(){
+  const local=parseFloat(document.getElementById('depAmt')?.value)||0;
+  const usd=depCountry.cur==='USD'?local:local/depCountry.rate;
+  document.getElementById('depConvVal').textContent='$'+usd.toFixed(2)+' USD';
+}
+function buildDepPayGrid(){
+  document.getElementById('depPayGrid').innerHTML=depCountry.methods.map(m=>'<div class="pay-card-d" id="dpc_'+m.id+'" onclick="selDepMethod(\''+m.id+'\')"><div class="pay-icon">'+m.icon+'</div><div class="pay-name">'+m.name+'</div><div class="pm-det">'+m.det+'</div></div>').join('');
+}
+function selDepMethod(id){
+  depMethod=depCountry.methods.find(m=>m.id===id);
+  document.querySelectorAll('.pay-card-d').forEach(el=>el.classList.remove('sel'));
+  const pc=document.getElementById('dpc_'+id);if(pc)pc.classList.add('sel');
+  const det=document.getElementById('depPayDet');det.classList.add('show');
+  det.innerHTML='<div style="font-size:13px;font-weight:700;color:var(--green);margin-bottom:9px;">'+depMethod.icon+' '+depMethod.name+'</div><div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--text2);margin-bottom:3px;">Account Name</div><div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:Share Tech Mono,monospace;font-size:13px;">'+depMethod.acc+'</div></div><div style="margin-bottom:8px;"><div style="font-size:11px;color:var(--text2);margin-bottom:3px;">Number</div><div style="background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;font-family:Share Tech Mono,monospace;font-size:14px;" id="dpNum">'+depMethod.number+'</div></div><button class="copy-btn" onclick="copyDepNum()">📋 Copy Number</button>';
+  const how=document.getElementById('depHowBox');how.style.display='block';
+  document.getElementById('depHowSteps').innerHTML=depMethod.steps.map((s,i)=>'<div class="how-step"><div class="snum">'+(i+1)+'</div><div>'+s+'</div></div>').join('');
+}
+function copyDepNum(){if(!depMethod)return;navigator.clipboard.writeText(depMethod.number).catch(()=>{});showToast('📋 Copied: '+depMethod.number,'t-info');}
+function submitDep(){
+  if(!depMethod){showToast('Please select a payment method!','t-warn');return;}
+  const local=parseFloat(document.getElementById('depAmt')?.value)||0;
+  if(local<depCountry.minDep){showToast('Minimum deposit is '+depCountry.sym+depCountry.minDep.toLocaleString()+'!','t-warn');return;}
+  showToast('✅ Payment submitted! Being verified...','t-win');closeDep();
+  setTimeout(()=>{
+    const isFirst=balance===5000;const add=local*(isFirst?2:1);balance+=add;updateBal();
+    showToast(isFirst?'💰 Deposit + 100% bonus! KSH '+local.toLocaleString()+' × 2 = KSH '+(local*2).toLocaleString():'💰 KSH '+local.toLocaleString()+' deposited!','t-win');
+  },4000);
+}
+
+// ════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════
+function showToast(msg,cls='t-info'){
+  const wrap=document.getElementById('toastWrap');const t=document.createElement('div');
+  t.className='toast '+cls;t.textContent=msg;wrap.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.classList.add('show')));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),380);},3800);
+}
+
+// ════════════════════════════════════════
+//  GO!
+// ════════════════════════════════════════
+boot();
+</script>
+</body>
+</html>
